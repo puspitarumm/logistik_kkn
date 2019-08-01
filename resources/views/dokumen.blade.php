@@ -18,7 +18,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
+              <table id="example1" class="table table-bordered table-hover">
 
               <thead>
                 <tr>
@@ -35,10 +35,16 @@
                 @foreach($document as $data)
                 <tr>
                   <td>{{$no++}}</td>
-                  <td>{{$data->nama_dokumen}}</td>
-                  <td>{{$data->nama_periode}}</td>
-                  <td>{{$data->dokumen}}</td>
+                  <td>{{$data['nama_dokumen']}}</td>
+                  <td>{{$data['periode']['nama_periode']}}</td>
+                  <td><a target='_BLANK' href="{{ Storage::url($data->dokumen) }}">{{$data['dokumen']}}</a></td>
+                  </td>
+
+                  <!-- <td><a href="{{ url('/data_file/'.$data->dokumen) }}"></a></td> -->
                   <td>
+                  <a href="{{ Storage::url($data->dokumen) }}" title="View file {{ $data->nama_dokumen }}">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                     <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->id_dokumen}}">
                     <i class="glyphicon glyphicon-edit"></i></button>
                     <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger{{$data->id_dokumen}}">
@@ -48,7 +54,7 @@
                 @endforeach
                 </tfoot>
               </table>
-              {!!$document->render()!!}
+              
             </div>
           </div>
         </div>
@@ -62,30 +68,41 @@
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Add Dokument</h4>
               </div>
+              @if(count($errors) > 0)
+				      <div class="alert alert-danger">
+					    @foreach ($errors->all() as $error)
+					    {{ $error }} <br/>
+					    @endforeach
+				    </div>
+	        	@endif
               <div class="modal-body">
-              <form method="POST" action="{{Route('create_doc')}}">
-				        <div class="form-group">
+              <form method="POST" action="{{url('dokumen/upload')}}" enctype="multipart/form-data">
+              {{ csrf_field() }}
+          
+                <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Nama Dokumen:</label>
 					          <input type="text" class="form-control" name="nama_dokumen" placeholder="nama dokumen">
 					        </div>
                   <div class="form-line">
 					          <label for="name">Nama Periode:</label>
-                    <input type="text" class="form-control" name="nama_periode" placeholder="nama periode">
-					        </div>
+                    <td><select class='form-control' name='id_periode' required>
+                    <option value="">-- Select Periode --</option>
+                      @foreach($periode as $item)
+                      <option value="{{$item['id_periode']}}">{{$item['nama_periode']}}</option>
+                      @endforeach
+                      </select>
+					        <td>
+                  </div>
                   <div class="form-line">
 					          <label for="name">Dokumen:</label>
-                    <input type="text" class="form-control" name="dokumen" placeholder="dokumen">
-					        </div>
+                    <input type="file" class="form-control" name="dokumen">        
                 </div>
-                {{csrf_field()}}
-
-                <!-- <p>One fine body&hellip;</p> -->
                 </div>
               <div class="modal-footer">
-                  <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="_method" value="POST">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <input type="submit" value="Upload" class="btn btn-primary">
               </div>
             </div>
             </form>
@@ -170,3 +187,25 @@
 
  
 @endsection
+
+@section('custom-script')
+<!-- DataTables -->
+<script src="{{asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <script type="text/javascript">
+        var DatatablesDataSourceHtml = {
+        init: function() {
+            $("#example1").DataTable({
+                searching : true,
+                lengthChange : true,
+                paging : true,
+                info : true,
+                responsive: !0,
+            })
+        }
+    };
+    jQuery(document).ready(function() {
+        DatatablesDataSourceHtml.init()
+    });    
+    </script>
+  @endsection

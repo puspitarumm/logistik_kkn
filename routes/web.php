@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/auth.login');
 });
 
 Route::get('template', function(){
@@ -92,20 +92,41 @@ Route::delete('dokumen_delete/{id_dokumen}','DocumentController@delete')->name('
 
 Route::get('dokumen', 'DocumentController@index');
 
-Route::put('dokumen_create','DocumentController@create')->name('create_doc');
+Route::post('/dokumen/upload', 'DocumentController@create');
+
+Route::Post('dokumen_create','DocumentController@create')->name('create_doc');
 
 Route::put('dokumen_update/{id_dokumen}','DocumentController@update')->name('update_doc');
 
+Route::get('dokumen/{dokumen}/response', 'DocumentController@response')->name('dokumen.response');
 
+Route::get('mahasiswa', 'MahasiswaController@index');
 
-Route::get('datamahasiswa', 'DataMahasiswaController@index');
+Route::put('datamahasiswa_create','DataMahasiswaController@create')->name('create_mhs');
 
-Route::put('datamahasiswa_create','DataMahasiswaController@create')->name('create_mahasiswa');
+Route::put('datamahasiswa_update/{nim}','DataMahasiswaController@update')->name('updated_mhs');
 
-Route::put('datamahasiswa_update/{nim}','DataMahasiswaController@update')->name('updatedm');
+Route::delete('datamahasiswa_delete/{nim}','DataMahasiswaController@delete')->name('delete_mhs');
 
-Route::delete('datamahasiswa_delete/{nim}','DataMahasiswaController@delete')->name('deletem');
+Route::post('/import_excel', 'MahasiswaController@import_excel');
+Route::get('mahasiswa', 'MahasiswaController@index');
+Route::post('/import_excel/import', 'MahasiswaController@import');
+
+Route::post('import_excel', 'MahasiswaController@import_excel');
+
+Route::post('mahasiswa/import_excel', 'MahasiswaController@import_excel');
+
+Route::get('/mahasiswa', 'MahasiswaController@index');
+
+Route::post('/mahasiswa/import_excel', 'MahasiswaController@import_excel');
 
 Route::get('dashboard', 'DashboardController@index');
 
+
+Route::get('dokumen2', 'Document2Controller@uploadFile');
+Route::post('upload', 'Document2Controller@StoreUploadFile');
+
 Auth::routes();
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

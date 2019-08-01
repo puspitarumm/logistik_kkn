@@ -38,8 +38,8 @@
                   <td>{{$no++}}</td>
                   <td>{{$data->nama_periode}}</td>
                   <td>{{$data->tahun}}</td>
-                  <td>{{$data->tgl_mulai}}</td>
-                  <td>{{$data->tgl_berakhir}}</td>
+                  <td>{{date('d F Y', strtotime($data->tgl_mulai))}}</td>
+                  <td>{{date('d F Y', strtotime($data->tgl_berakhir))}}</td>
                   <td>
                   <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->id_periode}}">
                     <i class="glyphicon glyphicon-edit"></i></button>
@@ -51,7 +51,7 @@
                 @endforeach
                 </tfoot>
               </table>
-              {!!$periode->render()!!}
+              
             </div>
           </div>
         </div>
@@ -74,16 +74,19 @@
 					        </div>
                   <div class="form-line">
 					          <label for="name">Tahun:</label>
+                   
                     <input type="text" class="form-control" name="tahun" placeholder="tahun">
 					        </div>
                   <div class="form-line">
 					          <label for="name">Tanggal Mulai:</label>
-                    <input type="date" class="form-control" name="tgl_mulai" placeholder="tanggal mulai">
+                    <br>
+                    <input type="date" class="form-control" name="tgl_mulai" placeholder="tanggal mulai" style="width: 30%; display: inline;">
 					        </div>
                   <div class="form-line">
 					          <label for="name">Tanggal Berakhir:</label>
-                    <input type="date" class="form-control" name="tgl_berakhir" placeholder="tanggal berakhir">
-					        </div>
+                    <input type="date" class="form-control" name="tgl_berakhir" placeholder="tanggal berakhir" style="width: 30%">
+                    
+                  </div>
                 </div>
                 {{csrf_field()}}
 
@@ -122,16 +125,31 @@
                   <div class="form-line">
 					          <label for="name">Tahun:</label>
                     <input type="text" class="form-control" name="tahun" placeholder="tahun" value="{{$data->tahun}}">
-					        </div>
-                  <div class="form-line">
-					          <label for="name">Tanggal Mulai:</label>
-                    <input type="date" class="form-control" name="tgl_mulai" placeholder="tanggal mulai" value="{{$data->tgl_mulai}}">
-					        </div>
-                  <div class="form-line">
-					          <label for="name">Tanggal Berakhir:</label>
-                    <input type="date" class="form-control" name="tgl_berakhir" placeholder="tanggal berakhir" value="{{$data->tgl_berakhir}}">
-					        </div>
+                  </div>
+                  <div class="form-group">
+                <label>Date:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="datepicker" name="tgl_mulai" value="{{old('tgl_mulai',date('Y-m-d')) ? old('tgl_mulai',date('Y-m-d')): $data['tgl_mulai']}}" >
                 </div>
+                <!-- /.input group -->
+              </div>
+
+              <div class="form-group">
+                <label>Date:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="datepicker2" name="tgl_berakhir" value="{{old('tgl_berakhir',date('Y-m-d')) ? old('tgl_berakhir',date('Y-m-d')): $data['tgl_berakhir']}}" >
+                </div>
+                <!-- /.input group -->
+              </div>
+                
                 {{csrf_field()}}
 
                  
@@ -178,4 +196,18 @@
 
     
  
+@endsection
+
+@section('custom-script')
+<script>
+$('#datepicker').datepicker({
+      autoclose: true,
+      format:'yyyy-mm-dd'
+
+    })
+$('#datepicker2').datepicker({
+      autoclose: true,
+      format:"yyyy-mm-dd"
+    })
+</script>
 @endsection

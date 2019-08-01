@@ -12,7 +12,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Barang</h3>
+              <h3 class="box-title">List Barang</h3>
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
               Tambahkan Data</button>
               <!-- <a class='pull-right btn btn-danger' href="">Tambahkan Data</a> -->
@@ -24,8 +24,6 @@
                 <tr>
                   <th>No</th>
                   <th>Nama Barang</th>
-                  <th>Stok</th>
-                  <th>Ukuran Barang</th>
                   <th>Aksi</th>
                 </tr>
                 </thead>
@@ -36,8 +34,6 @@
                 <tr>
                   <td>{{$no++}}</td>
                   <td>{{$data->nama_barang}}</td>
-                  <td>{{$data['stok']}}</td>
-                  <td>{{$data['ukuran']['ukuran_barang']}}</td>
                   <td>
                   <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->id_barang}}">
                     <i class="glyphicon glyphicon-pencil"></i></button>
@@ -71,18 +67,6 @@
 					          <label for="name">Nama Barang:</label>
 					          <input type="text" class="form-control" name="nama_barang" placeholder="nama barang" />
 					        </div>
-                  <div class="form-line">
-					          <label for="name">Stok:</label>
-					          <input type="text" class="form-control" name="stok" placeholder="stok" />
-					        </div>
-                  <div class="form-line">
-					          <label for="name">Ukuran Barang:</label>
-                    <!-- <tr><th scope='row'>Kategori</th>   -->
-                    <td><select class='form-control' name='id_ukuran' required>
-                      @foreach($ukuran as $item)
-                      <option value="{{$item['id_ukuran']}}">{{$item['ukuran_barang']}}</option>
-                      @endforeach
-					        <td></div>
                 </div>
                 {{csrf_field()}}
 

@@ -7,13 +7,17 @@ use App\Models\BarangMasuk;
 use Validator;
 use Illuminate\Support\Facades\Input;
 use App\http\Requests;
+use Carbon;
+use App\Models\Barang;
+use App\Models\UkuranBarang;
 
 class BarangMasukController extends Controller
 {
     public function index(){
-    $data['barang_masuk'] = BarangMasuk::orderBy('id_brg_masuk','desc')->paginate(10);
-        $data['barang_masuk_x'] = BarangMasuk::where('id_brg_masuk',10)->first();
-		return view('barangmasuk', $data);
+    $data['barang_masuk'] = BarangMasuk::orderBy('id_brg_masuk','desc')->with('barang','ukuran_barang')->get();
+    $data['barang'] = Barang::all();
+    $data['ukuran'] = UkuranBarang::all();
+	return view('barangmasuk', $data);
     
     }
     public function create(Request $request)
@@ -23,9 +27,7 @@ class BarangMasukController extends Controller
     	$c = new BarangMasuk();
         $c->tgl_masuk = $request->tgl_masuk;
         $c->id_barang = $request->id_barang;
-        $c->nama_barang = $request->nama_barang;
-        $c->jumlah_masuk = $request->jumlah_masuk;
-        $c->ukuran_barang = $request->ukuran_barang;
+        $c->jml_masuk = $request->jml_masuk;
 		$c->save();
     	return redirect('barangmasuk');
     }

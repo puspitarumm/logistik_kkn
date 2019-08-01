@@ -69,7 +69,7 @@
                 <h4 class="modal-title">Add Data Mahasiswa</h4>
               </div>
               <div class="modal-body">
-              <form method="POST" action="{{Route('create_mahasiswa')}}">
+              <form method="POST" action="{{Route('create_mhs')}}">
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">NIM:</label>
@@ -124,7 +124,7 @@
                 <h4 class="modal-title">Edit</h4>
               </div>
               <div class="modal-body">
-              <form method="post" action="{{route('updated', $data['nim']) }}">
+              <form method="post" action="{{route('updated_mhs', $data['nim']) }}">
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">NIM:</label>
@@ -175,7 +175,7 @@
 						                        aria-hidden="true">&times;</span></button>
 						            <h4 class="modal-title">Peringatan</h4>
 						        </div>
-						        <form action="{{route('delete', $data->nim)}}" method="post">
+						        <form action="{{route('delete_mhs', $data->nim)}}" method="post">
 						            <div class="modal-body text-center">
 						                <span class="fa fa-exclamation-triangle fa-2x" style="color: orange;"></span>
 						          

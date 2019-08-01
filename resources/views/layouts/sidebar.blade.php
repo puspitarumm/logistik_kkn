@@ -43,7 +43,7 @@
             <li><a href="{{ url('/barang') }}"><i class="fa fa-circle-o"></i> Data Barang</a></li>
             <li><a href="{{ url('/ukuranbarang') }}"><i class="fa fa-circle-o"></i> Ukuran Barang</a></li>
             <!-- <li><a href="{{ url('/satuan') }}"><i class="fa fa-circle-o"></i> Satuan</a></li> -->
-            <li><a href="{{ url('/datamahasiswa') }}"><i class="fa fa-circle-o"></i> Data Mahasiswa</a></li>
+            <li><a href="{{ url('/mahasiswa') }}"><i class="fa fa-circle-o"></i> Data Mahasiswa</a></li>
           </ul>
         </li>
         <li class="treeview">

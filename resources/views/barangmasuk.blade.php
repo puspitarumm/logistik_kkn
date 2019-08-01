@@ -24,10 +24,9 @@
                 <tr>
                   <th>No</th>
                   <th>Tanggal Masuk</th>
-                  <th>ID Barang</th>
                   <th>Nama Barang</th>
-                  <th>Jumlah Masuk</th>
                   <th>Ukuran Barang</th>
+                  <th>Jumlah Masuk</th>
                   <th>Aksi</th>
                 </tr>
                 </thead>
@@ -37,11 +36,10 @@
                 @foreach($barang_masuk as $data)
                 <tr>
                   <td>{{$no++}}</td>
-                  <td>{{$data->tgl_masuk}}</td>
-                  <td>{{$data->id_barang}}</td>
-                  <td>{{$data->nama_barang}}</td>
+                  <td>{{date('d F Y', strtotime($data->tgl_masuk))}}</td>
+                  <td>{{$data['barang']['nama_barang']}}</td>
+                  <td>{{$data['ukuran']['ukuran_barang']}}</td>
                   <td>{{$data->jumlah_masuk}}</td>
-                  <td>{{$data->ukuran_barang}}</td>
                   <td><button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->id_brg_masuk}}">
                     <i class="glyphicon glyphicon-pencil"></i></button>
 				          <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger{{$data->id_brg_masuk}}">
@@ -51,7 +49,6 @@
                 @endforeach
                 </tfoot>
               </table>
-              {!!$barang_masuk->render()!!}
             </div>
           </div>
         </div>
@@ -74,21 +71,26 @@
 					          <input type="date" class="form-control" name="tgl_masuk" placeholder="tanggal masuk" />
 					        </div>
                   <div class="form-line">
-					          <label for="name">Id Barang:</label>
-                    <input type="text" class="form-control" name="id_barang" placeholder="id barang"/>
-					        </div>
-                  <div class="form-line">
 					          <label for="name">Nama Barang:</label>
-                    <input type="text" class="form-control" name="nama_barang" placeholder="nama barang"/>
-					        </div>
+                    <td><select class='form-control' name='id_ukuran' required>
+                      @foreach($barang as $item)
+                      <option value="{{$item['id_barang']}}">{{$item['nama_barang']}}</option>
+                      @endforeach
+					        <td> </select>
+                  </div>
+                  <!-- <div class="form-line">
+					          <label for="name">Ukuran Barang:</label>
+                    <td><select class='form-control' name='id_ukuran' required>
+                      @foreach($ukuran as $item)
+                      <option value="{{$item['id_ukuran']}}">{{$item['ukuran_barang']}}</option>
+                      @endforeach
+					        <td></select>
+					        </div> -->
                   <div class="form-line">
 					          <label for="name">Jumlah Masuk:</label>
                     <input type="text" class="form-control" name="jumlah_masuk" placeholder="jumlah masuk"/>
 					        </div>
-                  <div class="form-line">
-					          <label for="name">Ukuran Barang:</label>
-                    <input type="text" class="form-control" name="ukuran_barang" placeholder="ukuran barang"/>
-					        </div>
+                  
                 </div>
                 {{csrf_field()}}
 
@@ -122,7 +124,7 @@
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Tanggal Masuk:</label>
-                    <input type="date" class="form-control" name="tgl_masuk" placeholder="tanggal masuk" value="{{$data->tgl_masuk}}">
+                    <input type="date" class="form-control" name="tgl_masuk" placeholder="tanggal masuk" value="value="{{ Carbon\Carbon::parse($data->tgl_masuk)->format('m/d/Y') }}"">
 					        </div>
                   <div class="form-line">
 					          <label for="name">Id Barang:</label>

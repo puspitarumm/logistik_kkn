@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 27 Jun 2019 06:28:41 +0000.
+ * Date: Sun, 21 Jul 2019 09:56:51 +0000.
  */
 
 namespace App\Models;
@@ -14,8 +14,10 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id_dokumen
  * @property string $nama_dokumen
- * @property string $dokumen
- * @property string $nama_periode
+ * @property int $id_periode
+ * @property mediumblob $dokumen
+ * 
+ * @property \App\Models\Periode $periode
  *
  * @package App\Models
  */
@@ -23,16 +25,20 @@ class Document extends Eloquent
 {
 	protected $table = 'document';
 	protected $primaryKey = 'id_dokumen';
-	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'id_dokumen' => 'int'
+		'id_periode' => 'int',
 	];
 
 	protected $fillable = [
 		'nama_dokumen',
-		'dokumen',
-		'nama_periode'
+		'id_periode',
+		'dokumen'
 	];
+
+	public function periode()
+	{
+		return $this->belongsTo(\App\Models\Periode::class, 'id_periode');
+	}
 }

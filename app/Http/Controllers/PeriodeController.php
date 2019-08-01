@@ -7,14 +7,21 @@ use App\Models\Periode;
 use Validator;
 use Illuminate\Support\Facades\Input;
 use App\http\Requests;
+use Carbon\Carbon;
 
 class PeriodeController extends Controller
 {
     public function index(){
 
-        $data['periode'] = Periode::orderBy('id_periode','desc')->paginate(5);
-        $data['periode_x'] = Periode::where('id_periode',10)->first();
-		return view('periode', $data);
+        $data['periode'] = Periode::orderBy('id_periode','desc')->get();
+        foreach($data['periode'] as $item){
+            $item['tgl_mulai']=date('Y-m-d', strtotime($item['tgl_mulai']));
+            // return $item;
+        }
+        // return $data['periode'];
+        // $periode = \App\Models\Periode::find(1);
+        // $newDateFormat = date('d/m/Y', strtotime($periode->tgl_mulai));
+        return view('periode', $data);
     
     }
     public function create(Request $request)
@@ -28,11 +35,14 @@ class PeriodeController extends Controller
     	return redirect('periode');
     }
     public function update(Request $request, $id_periode){
-    	$d = Periode::where('id_periode',$id_periode)->first();
-		$d->nama_periode = $request->nama_periode;
+        // return $request;
+        // $d = Periode::where('id_periode',$id_periode)->first();
+        $d=Periode::find($id_periode);
+        $d->nama_periode = $request->nama_periode;
         $d->tahun = $request->tahun;
-        $d->tgl_mulai = $request->tgl_mulai;
-        $d->tgl_berakhir = $request->tgl_berakhir;
+        $d->tgl_mulai = date('Y-m-d', strtotime($request->tgl_mulai));
+        $d->tgl_berakhir = date('Y-m-d', strtotime($request->tgl_berakhir));
+        // return $d;
 		$d->update();
 		return redirect('periode');
     }

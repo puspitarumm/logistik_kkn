@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 02 May 2019 11:10:36 +0000.
+ * Date: Mon, 29 Jul 2019 14:38:10 +0000.
  */
 
 namespace App\Models;
@@ -12,11 +12,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 /**
  * Class BarangMasuk
  * 
- * @property string $id_brg_masuk
+ * @property int $id_brg_masuk
  * @property \Carbon\Carbon $tgl_masuk
  * @property int $id_barang
- * @property string $nama_barang
- * @property int $jumlah_masuk
+ * @property int $id_ukuran
+ * @property int $jml_masuk
+ * 
+ * @property \App\Models\Barang $barang
+ * @property \App\Models\UkuranBarang $ukuran_barang
  *
  * @package App\Models
  */
@@ -24,12 +27,12 @@ class BarangMasuk extends Eloquent
 {
 	protected $table = 'barang_masuk';
 	protected $primaryKey = 'id_brg_masuk';
-	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
 		'id_barang' => 'int',
-		'jumlah_masuk' => 'int'
+		'id_ukuran' => 'int',
+		'jml_masuk' => 'int'
 	];
 
 	protected $dates = [
@@ -39,7 +42,17 @@ class BarangMasuk extends Eloquent
 	protected $fillable = [
 		'tgl_masuk',
 		'id_barang',
-		'nama_barang',
-		'jumlah_masuk'
+		'id_ukuran',
+		'jml_masuk'
 	];
+
+	public function barang()
+	{
+		return $this->belongsTo(\App\Models\Barang::class, 'id_brg_masuk');
+	}
+
+	public function ukuran_barang()
+	{
+		return $this->belongsTo(\App\Models\UkuranBarang::class, 'id_ukuran');
+	}
 }

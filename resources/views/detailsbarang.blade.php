@@ -25,16 +25,20 @@
                 <tr>
                   <th>No</th>
                   <th>Nama Barang</th>
+                  <th>Ukuran Barang</th>
+                  <th>Stok</th>
                   <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php $no=1; 
                 ?>
-                    @foreach($barang as $data)
+                    @foreach($detailsbarang as $data)
                 <tr>
                   <td>{{$no++}}</td>
-                  <td>{{$data->nama_barang}}</td>
+                  <td>{{$data['barang']['nama_barang']}}</td>
+                  <td>{{$data['ukuran_barang']['ukuran_barang']}}</td>
+                  <td>{{$data['stok']}}</td>
                   <td>
                   <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->id_barang}}">
                     <i class="glyphicon glyphicon-pencil"></i></button>
@@ -62,12 +66,36 @@
                 <h4 class="modal-title">Add Barang</h4>
               </div>
               <div class="modal-body">
-              <form method="POST" action="{{Route('create_brg')}}">
+              <form method="POST" action="{{Route('create_details')}}">
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Nama Barang:</label>
-					          <input type="text" class="form-control" name="nama_barang" placeholder="nama barang" />
+					          <td><select class='form-control' name='id_barang' required>
+                    <option value="">-- Select Barang --</option>
+                      @foreach($barang as $item)
+                      <option value="{{$item['id_barang']}}">{{$item['nama_barang']}}</option>
+                      @endforeach
+                      </select>
+					        <td>
 					        </div>
+
+                  <div class="form-line">
+					          <label for="name">Ukuran Barang:</label>
+					          <td><select class='form-control' name='id_ukuran' required>
+                    <option value="">-- Select Ukuran --</option>
+                      @foreach($ukuran_barang as $item)
+                      <option value="{{$item['id_ukuran']}}">{{$item['ukuran_barang']}}</option>
+                      @endforeach
+                      </select>
+					        <td>
+					        </div>
+
+                  <div class="form-line">
+					          <label for="name">Stok:</label>
+                    <input type="text" class="form-control" name="stok" placeholder="stok">
+
+					        </div>
+
                 </div>
                 {{csrf_field()}}
 
@@ -87,7 +115,7 @@
       </div>
 
 
-           @foreach($barang as $data)
+           @foreach($detailsbarang as $data)
 
           <div class="modal fade" id="modal-warning{{$data->id_barang}}" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
@@ -132,7 +160,7 @@
         <!-- /.modal -->
 @endforeach
 
-@foreach($barang as $data)
+@foreach($detailsbarang as $data)
              <div class="modal fade" id="modal-danger{{$data->id_barang}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

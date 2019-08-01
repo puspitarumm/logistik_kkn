@@ -26,7 +26,10 @@ Route::get('template', function(){
 //     Route::POST('deleteBarang','PostController@deleteBarang');
 //   });
 
-Route::get('barang','BarangController@index');
+Route::get('detailsbarang','DetailsBarangController@index');
+Route::put('detailsbarang_create','DetailsBarangController@create')->name('create_details');
+
+Route::get('listbarang','BarangController@index');
 
 Route::put('barang_create','BarangController@create')->name('create_brg');
 

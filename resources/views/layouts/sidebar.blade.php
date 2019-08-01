@@ -40,8 +40,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ url('/barang') }}"><i class="fa fa-circle-o"></i> Data Barang</a></li>
+            <li><a href="{{ url('/listbarang') }}"><i class="fa fa-circle-o"></i> List Barang</a></li>
             <li><a href="{{ url('/ukuranbarang') }}"><i class="fa fa-circle-o"></i> Ukuran Barang</a></li>
+            <li><a href="{{ url('/detailsbarang') }}"><i class="fa fa-circle-o"></i> Data Barang</a></li>
             <!-- <li><a href="{{ url('/satuan') }}"><i class="fa fa-circle-o"></i> Satuan</a></li> -->
             <li><a href="{{ url('/mahasiswa') }}"><i class="fa fa-circle-o"></i> Data Mahasiswa</a></li>
           </ul>

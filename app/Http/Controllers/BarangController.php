@@ -19,7 +19,7 @@ class BarangController extends Controller
         // $data['barang_x'] F= Barang::where('id_barang',10)->first();
         // $data['ukuran_barang2'] = UkuranBarang::pluck('ukuran_barang', 'id_ukuran');
         // $data['selectedID'] = 2;
-        return view('barang',$data);
+        return view('listbarang',$data);
     }
 
     public function create(Request $request){
@@ -28,7 +28,7 @@ class BarangController extends Controller
       $c->id_barang = $request->id_barang;
       $c->nama_barang = $request->nama_barang;
       $c->save();
-      return redirect('barang');
+      return redirect('listbarang');
     }
 
     public function update(Request $request,$id_barang){
@@ -38,12 +38,12 @@ class BarangController extends Controller
       $c->id_ukuran = $request->id_ukuran;
       $c->ukuran_barang = $request->ukuran_barang;
       $c->update();
-      return redirect('barang');
+      return redirect('listbarang');
 
     }
 
     public function delete($id_barang){
     	Barang::where('id_barang',$id_barang)->delete();
-        return redirect('barang');
+        return redirect('listbarang');
     }
 }

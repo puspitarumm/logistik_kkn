@@ -38,8 +38,8 @@
                   <td>{{$no++}}</td>
                   <td>{{$data->nama_periode}}</td>
                   <td>{{$data->tahun}}</td>
-                  <td>{{date('d F Y', strtotime($data->tgl_mulai))}}</td>
-                  <td>{{date('d F Y', strtotime($data->tgl_berakhir))}}</td>
+                  <td>{{$data->date_mulai}}</td>
+                  <td>{{$data->date_berakhir}}</td>
                   <td>
                   <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->id_periode}}">
                     <i class="glyphicon glyphicon-edit"></i></button>
@@ -133,7 +133,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" id="datepicker" name="tgl_mulai" value="{{old('tgl_mulai',date('Y-m-d')) ? old('tgl_mulai',date('Y-m-d')): $data['tgl_mulai']}}" >
+                  <input type="text" class="form-control pull-right" id="datepicker" name="tgl_mulai" value="{{old('date_mulai') ? old('date_mulai'): $data['date_mulai']}}" >
                 </div>
                 <!-- /.input group -->
               </div>
@@ -145,7 +145,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" id="datepicker2" name="tgl_berakhir" value="{{old('tgl_berakhir',date('Y-m-d')) ? old('tgl_berakhir',date('Y-m-d')): $data['tgl_berakhir']}}" >
+                  <input type="text" class="form-control pull-right" id="datepicker2" name="tgl_berakhir" value="{{old('date_berakhir') ? old('tgl_berakhir'): $data['date_berakhir']}}" >
                 </div>
                 <!-- /.input group -->
               </div>
@@ -202,12 +202,12 @@
 <script>
 $('#datepicker').datepicker({
       autoclose: true,
-      format:'yyyy-mm-dd'
+      format:'dd MM yyyy'
 
     })
 $('#datepicker2').datepicker({
       autoclose: true,
-      format:"yyyy-mm-dd"
+      format:"dd MM yyyy"
     })
 </script>
 @endsection

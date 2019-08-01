@@ -15,12 +15,10 @@ class PeriodeController extends Controller
 
         $data['periode'] = Periode::orderBy('id_periode','desc')->get();
         foreach($data['periode'] as $item){
-            $item['tgl_mulai']=date('Y-m-d', strtotime($item['tgl_mulai']));
-            // return $item;
+            $item['date_mulai']=date('d F Y', strtotime($item['tgl_mulai']));
+            $item['date_berakhir']=date('d F Y', strtotime($item['tgl_berakhir']));
         }
         // return $data['periode'];
-        // $periode = \App\Models\Periode::find(1);
-        // $newDateFormat = date('d/m/Y', strtotime($periode->tgl_mulai));
         return view('periode', $data);
     
     }

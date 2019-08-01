@@ -207,7 +207,7 @@ $('#datepicker').datepicker({
     })
 $('#datepicker2').datepicker({
       autoclose: true,
-      format:"dd MM yyyy"
+      format:'dd MM yyyy'
     })
 </script>
 @endsection

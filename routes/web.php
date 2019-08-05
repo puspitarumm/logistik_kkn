@@ -130,3 +130,9 @@ Auth::routes();
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('transaksi')->group(function() {
+    Route::get('add','BarangKeluarController@add_keluar');
+    Route::post('create','BarangKeluarController@add_create');
+    Route::post('save','BarangKeluarController@save_create');
+});

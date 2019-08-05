@@ -93,7 +93,7 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="./images/girl.png" class="user-image" alt="User Image">
+              <img src="{{url('./images/girl.png')}}" class="user-image" alt="User Image">
               <span class="hidden-xs">Arum Puspitasari</span>
             </a>
             <ul class="dropdown-menu">

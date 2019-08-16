@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 02 May 2019 11:10:36 +0000.
+ * Date: Fri, 16 Aug 2019 14:29:38 +0000.
  */
 
 namespace App\Models;
@@ -25,12 +25,7 @@ class Admin extends Eloquent
 {
 	protected $table = 'admin';
 	protected $primaryKey = 'id_admin';
-	public $incrementing = false;
 	public $timestamps = false;
-
-	protected $casts = [
-		'id_admin' => 'int'
-	];
 
 	protected $hidden = [
 		'password'

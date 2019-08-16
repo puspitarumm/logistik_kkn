@@ -14,14 +14,12 @@ class CreateBarangKeluarTable extends Migration {
 	{
 		Schema::create('barang_keluar', function(Blueprint $table)
 		{
-			$table->string('id_brg_keluar', 50)->primary();
-			$table->date('tgl_keluar');
-			$table->integer('id_barang');
-			$table->string('nama_barang', 50);
+			$table->integer('id_brg_keluar', true);
+			$table->integer('id_barang_ambil');
+			$table->integer('id_barang')->index('FK_id_barang');
+			$table->integer('id_ukuran')->index('FK_id_ukuran');
 			$table->integer('jml_keluar');
-			$table->string('penanggungjawab', 50);
-			$table->string('bukti_pertanggungjawaban', 50);
-			$table->string('bukti_penyerahan', 50);
+			$table->timestamps();
 		});
 	}
 

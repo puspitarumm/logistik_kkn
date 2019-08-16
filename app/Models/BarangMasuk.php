@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 29 Jul 2019 14:38:10 +0000.
+ * Date: Fri, 16 Aug 2019 14:29:38 +0000.
  */
 
 namespace App\Models;
@@ -48,7 +48,7 @@ class BarangMasuk extends Eloquent
 
 	public function barang()
 	{
-		return $this->belongsTo(\App\Models\Barang::class, 'id_brg_masuk');
+		return $this->belongsTo(\App\Models\Barang::class, 'id_barang');
 	}
 
 	public function ukuran_barang()

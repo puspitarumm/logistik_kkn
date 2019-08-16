@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 02 May 2019 11:10:36 +0000.
+ * Date: Fri, 16 Aug 2019 14:29:38 +0000.
  */
 
 namespace App\Models;
@@ -12,14 +12,16 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 /**
  * Class BarangKeluar
  * 
- * @property string $id_brg_keluar
- * @property \Carbon\Carbon $tgl_keluar
+ * @property int $id_brg_keluar
+ * @property int $id_barang_ambil
  * @property int $id_barang
- * @property string $nama_barang
+ * @property int $id_ukuran
  * @property int $jml_keluar
- * @property string $penanggungjawab
- * @property string $bukti_pertanggungjawaban
- * @property string $bukti_penyerahan
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * 
+ * @property \App\Models\Barang $barang
+ * @property \App\Models\UkuranBarang $ukuran_barang
  *
  * @package App\Models
  */
@@ -27,25 +29,28 @@ class BarangKeluar extends Eloquent
 {
 	protected $table = 'barang_keluar';
 	protected $primaryKey = 'id_brg_keluar';
-	public $incrementing = false;
-	public $timestamps = false;
 
 	protected $casts = [
+		'id_barang_ambil' => 'int',
 		'id_barang' => 'int',
+		'id_ukuran' => 'int',
 		'jml_keluar' => 'int'
 	];
 
-	protected $dates = [
-		'tgl_keluar'
+	protected $fillable = [
+		'id_barang_ambil',
+		'id_barang',
+		'id_ukuran',
+		'jml_keluar'
 	];
 
-	protected $fillable = [
-		'tgl_keluar',
-		'id_barang',
-		'nama_barang',
-		'jml_keluar',
-		'penanggungjawab',
-		'bukti_pertanggungjawaban',
-		'bukti_penyerahan'
-	];
+	public function barang()
+	{
+		return $this->belongsTo(\App\Models\Barang::class, 'id_barang');
+	}
+
+	public function ukuran_barang()
+	{
+		return $this->belongsTo(\App\Models\UkuranBarang::class, 'id_ukuran');
+	}
 }

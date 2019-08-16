@@ -116,7 +116,9 @@
 </div>
 
       @foreach($periode as $data)
-
+        @php
+            $i=$loop->iteration;
+        @endphp
           <div class="modal fade" id="modal-warning{{$data->id_periode}}" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -129,7 +131,7 @@
               <form method="post" action="{{ route('update_per', $data['id_periode']) }}">
 				        <div class="form-group">
 					        <div class="form-line">
-					          <label for="name">Nama Periode:</label>
+                    <label for="name">Nama Periode:</label>
                     <input type="text" class="form-control" name="nama_periode" placeholder="nama periode" value="{{$data->nama_periode}}">
 					        </div>
                   <div class="form-line">
@@ -143,7 +145,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" id="datepicker" name="tgl_mulai" value="{{old('date_mulai') ? old('date_mulai'): $data['date_mulai']}}" >
+                  <input type="text" class="form-control pull-right datepicker" name="tgl_mulai" value="{{old('date_mulai') ? old('date_mulai'): $data['date_mulai']}}" >
                 </div>
                 <!-- /.input group -->
               </div>
@@ -155,7 +157,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" id="datepicker2" name="tgl_berakhir" value="{{old('date_berakhir') ? old('tgl_berakhir'): $data['date_berakhir']}}" >
+                  <input type="text" class="form-control pull-right datepicker" name="tgl_berakhir" value="{{old('date_berakhir') ? old('tgl_berakhir'): $data['date_berakhir']}}" >
                 </div>
                 <!-- /.input group -->
               </div>
@@ -210,14 +212,9 @@
 
 @section('custom-script')
 <script>
-$('#datepicker').datepicker({
+$('.datepicker').datepicker({
       autoclose: true,
       format:'dd MM yyyy'
-
-    })
-$('#datepicker2').datepicker({
-      autoclose: true,
-      format:"dd MM yyyy"
     })
     $('#datepicker3').datepicker({
       autoclose: true,

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sat, 13 Jul 2019 09:54:07 +0000.
+ * Date: Fri, 16 Aug 2019 14:29:39 +0000.
  */
 
 namespace App\Models;
@@ -22,6 +22,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property \App\Models\Periode $periode
  * @property \App\Models\UkuranBarang $ukuran_barang
+ * @property \Illuminate\Database\Eloquent\Collection $barang_ambils
  *
  * @package App\Models
  */
@@ -32,20 +33,19 @@ class Mahasiswa extends Eloquent
 	public $incrementing = false;
 	public $timestamps = false;
 
-	// protected $casts = [
-	// 	'niu' => 'int',
-	// 	'id_ukuran' => 'int',
-	// 	'id_periode' => 'int'
-	// ];
+	protected $casts = [
+		'niu' => 'int',
+		'id_ukuran' => 'int',
+		'id_periode' => 'int'
+	];
 
 	protected $fillable = [
-		'niu',
-		'id_ukuran',
 		'nama',
 		'fakultas',
 		'lokasi',
 		'kode_lokasi',
-		'id_periode',
+		'id_ukuran',
+		'id_periode'
 	];
 
 	public function periode()
@@ -56,5 +56,10 @@ class Mahasiswa extends Eloquent
 	public function ukuran_barang()
 	{
 		return $this->belongsTo(\App\Models\UkuranBarang::class, 'id_ukuran');
+	}
+
+	public function barang_ambils()
+	{
+		return $this->hasMany(\App\Models\BarangAmbil::class, 'niu');
 	}
 }

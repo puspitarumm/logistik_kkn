@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 02 May 2019 11:10:37 +0000.
+ * Date: Fri, 16 Aug 2019 14:29:39 +0000.
  */
 
 namespace App\Models;
@@ -13,7 +13,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Class Lokasi
  * 
  * @property int $id_lokasi
- * @property string $nama_lokasi
+ * @property string $kode_lokasi
+ * @property string $lokasi
+ * @property string $penanggungjawab
  *
  * @package App\Models
  */
@@ -29,6 +31,8 @@ class Lokasi extends Eloquent
 	];
 
 	protected $fillable = [
-		'nama_lokasi'
+		'kode_lokasi',
+		'lokasi',
+		'penanggungjawab'
 	];
 }

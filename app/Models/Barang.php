@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 07 Jul 2019 07:44:50 +0000.
+ * Date: Fri, 16 Aug 2019 14:29:38 +0000.
  */
 
 namespace App\Models;
@@ -14,10 +14,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id_barang
  * @property string $nama_barang
- * @property int $stok
- * @property int $id_ukuran
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * 
+ * @property \Illuminate\Database\Eloquent\Collection $barang_keluars
+ * @property \Illuminate\Database\Eloquent\Collection $barang_masuks
+ * @property \Illuminate\Database\Eloquent\Collection $detailsbarangs
  *
  * @package App\Models
  */
@@ -26,18 +28,22 @@ class Barang extends Eloquent
 	protected $table = 'barang';
 	protected $primaryKey = 'id_barang';
 
-	protected $casts = [
-		'stok' => 'int',
-		'id_ukuran' => 'int'
+	protected $fillable = [
+		'nama_barang'
 	];
 
-	protected $fillable = [
-		'nama_barang',
-		'stok',
-		'id_ukuran'
-	];
-	public function ukuran(){
-		return $this->belongsTo(\App\Models\UkuranBarang::class,'id_ukuran');
+	public function barang_keluars()
+	{
+		return $this->hasMany(\App\Models\BarangKeluar::class, 'id_barang');
+	}
+
+	public function barang_masuks()
+	{
+		return $this->hasMany(\App\Models\BarangMasuk::class, 'id_barang');
+	}
+
+	public function detailsbarangs()
+	{
+		return $this->hasMany(\App\Models\Detailsbarang::class, 'id_barang');
 	}
 }
-

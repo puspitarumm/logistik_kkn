@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 26 Jun 2019 08:13:51 +0000.
+ * Date: Fri, 16 Aug 2019 14:33:04 +0000.
  */
 
 namespace App\Models;
@@ -17,6 +17,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $tahun
  * @property \Carbon\Carbon $tgl_mulai
  * @property \Carbon\Carbon $tgl_berakhir
+ * 
+ * @property \Illuminate\Database\Eloquent\Collection $documents
+ * @property \Illuminate\Database\Eloquent\Collection $mahasiswas
  *
  * @package App\Models
  */
@@ -41,4 +44,14 @@ class Periode extends Eloquent
 		'tgl_mulai',
 		'tgl_berakhir'
 	];
+
+	public function documents()
+	{
+		return $this->hasMany(\App\Models\Document::class, 'id_periode');
+	}
+
+	public function mahasiswas()
+	{
+		return $this->hasMany(\App\Models\Mahasiswa::class, 'id_periode');
+	}
 }

@@ -85,6 +85,8 @@ Route::delete('barangmasuk_delete/{id_brg_masuk}','BarangMasukController@delete'
 
 Route::get('barangkeluar', 'BarangKeluarController@index');
 Route::put('barangkeluar_create','BarangKeluarController@create')->name('create_brg_keluar');
+Route::post('print','BarangKeluarController@printPdf');
+Route::post('unggah','BarangKeluarController@uploadBukti');
 
 Route::put('barangkeluar_update/{id_brg_keluar}','BarangKeluarController@update')->name('update_brg_keluar');
 
@@ -133,7 +135,6 @@ Route::post('/mahasiswa/import_excel', 'MahasiswaController@import_excel');
 
 Route::get('dashboard', 'DashboardController@index');
 
-
 Route::get('dokumen2', 'Document2Controller@uploadFile');
 Route::post('upload', 'Document2Controller@StoreUploadFile');
 
@@ -145,5 +146,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('barangmasuk')->group(function() {
     Route::get('tambah_barangmasuk','BarangMasukController@add_masuk');
     Route::post('barangmasuk','BarangMasukController@index');
+});
+Route::prefix('transaksi')->group(function() {
+    Route::get('add','BarangKeluarController@add_keluar');
+    Route::post('create','BarangKeluarController@add_create');
     Route::post('save','BarangKeluarController@save_create');
 });

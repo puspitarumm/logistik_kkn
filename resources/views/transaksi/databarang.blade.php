@@ -88,7 +88,7 @@
                                                 @foreach ($ukuran as $ukuran)
                                                 @if ($ukuran['ukuran_barang']!='All')
                                                 <div class="col-sm-1">
-                                                    <input type="text" class="form-control" name="{{$ukuran['ukuran_barang']}}" placeholder="{{$ukuran['ukuran_barang']}}">
+                                                    <input type="text" class="form-control" name="{{$barang['nama_barang'].$ukuran['ukuran_barang']}}" placeholder="{{$ukuran['ukuran_barang']}}">
                                                 </div>
                                                 @endif
                                                 @endforeach
@@ -102,7 +102,7 @@
                                       <div class="form-group">
                                         <label for="inputEmail3" class="col-sm-1 control-label">Jumlah</label>
                                             <div class="col-sm-1">
-                                                <input type="text" class="form-control" name="{{$barang['nama_barang']}}" placeholder="All">
+                                                <input type="text" class="form-control" name="{{$barang['nama_barang'].'All'}}" placeholder="All">
                                             </div>
                                       </div>
                                             <!-- /.box-body -->

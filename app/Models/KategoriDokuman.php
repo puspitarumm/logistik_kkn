@@ -31,4 +31,6 @@ class KategoriDokuman extends Eloquent
 	protected $fillable = [
 		'kategori_dokumen'
 	];
+
+	
 }

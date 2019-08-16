@@ -40,12 +40,9 @@ class BarangKeluar extends Eloquent
 	];
 
 	protected $fillable = [
-		'tgl_keluar',
+		'id_barang_ambil',
 		'id_barang',
-		'nama_barang',
-		'jml_keluar',
-		'penanggungjawab',
-		'bukti_pertanggungjawaban',
-		'bukti_penyerahan'
+		'id_ukuran',
+		'jml_keluar'
 	];
 }

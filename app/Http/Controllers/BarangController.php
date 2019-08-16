@@ -10,6 +10,10 @@ use App\http\Requests;
 
 class BarangController extends Controller
 {
+  public function __construct()
+    {
+        $this->middleware('auth');
+    }
    
     public function index()
     {
@@ -34,9 +38,6 @@ class BarangController extends Controller
     public function update(Request $request,$id_barang){
       $c = Barang::where('id_barang',$id_barang)->first();
       $c->nama_barang = $request->nama_barang;
-      $c->stok = $request->stok;
-      $c->id_ukuran = $request->id_ukuran;
-      $c->ukuran_barang = $request->ukuran_barang;
       $c->update();
       return redirect('listbarang');
 

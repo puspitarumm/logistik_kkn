@@ -130,7 +130,7 @@
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Nama Barang:</label>
-                    <input type="text" class="form-control" name="nama_barang" placeholder="nama barang" value="{{$data->nama_barang}}">
+                    <input type="text" class="form-control" name="nama_barang" placeholder="nama barang" value="{{$data['barang']['nama_barang']}}">
 					        </div>
                   <div class="form-line">
 					          <label for="name">Stok:</label>
@@ -138,7 +138,7 @@
 					        </div>
                   <div class="form-line">
 					          <label for="name">Ukuran Barang:</label>
-                    <input type="text" class="form-control" name="ukuran_barang" placeholder="ukuran barang" value="{{$data->ukuran_barang}}">
+                    <input type="text" class="form-control" name="ukuran_barang" placeholder="ukuran barang" value="{{$data['ukuran_barang']['ukuran_barang']}}">
 					        </div>
                 </div>
                 {{csrf_field()}}
@@ -201,7 +201,9 @@
                 lengthChange : true,
                 paging : true,
                 info : true,
+                ordering    : true,
                 responsive: !0,
+                
             })
         }
     };

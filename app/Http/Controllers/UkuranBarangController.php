@@ -14,6 +14,10 @@ use App\http\Requests;
 
 class UkuranBarangController extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
 		$data['ukuran_barang'] = UkuranBarang::get();
 		// return $data;

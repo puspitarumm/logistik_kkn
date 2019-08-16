@@ -14,10 +14,9 @@ class CreatePeriodeTable extends Migration {
 	{
 		Schema::create('periode', function(Blueprint $table)
 		{
-			$table->integer('id_periode')->primary();
+			$table->integer('id_periode', true);
 			$table->string('nama_periode', 50);
-			$table->string('periode', 50);
-			$table->date('tahun');
+			$table->integer('tahun');
 			$table->date('tgl_mulai');
 			$table->date('tgl_berakhir');
 		});

@@ -19,8 +19,8 @@ class CreateMahasiswaTable extends Migration {
 			$table->string('fakultas');
 			$table->string('lokasi');
 			$table->string('kode_lokasi');
-			$table->integer('id_ukuran');
-			$table->integer('id_periode');
+			$table->integer('id_ukuran')->index('fk_ukuran');
+			$table->integer('id_periode')->index('fk_periode');
 		});
 	}
 

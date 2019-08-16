@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateKategoriDokumenTable extends Migration {
+class CreatePasswordResetsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,11 @@ class CreateKategoriDokumenTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('kategori_dokumen', function(Blueprint $table)
+		Schema::create('password_resets', function(Blueprint $table)
 		{
-			$table->integer('id_kategori')->primary();
-			$table->boolean('kategori_dokumen');
+			$table->string('email');
+			$table->string('token');
+			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 		});
 	}
 
@@ -27,7 +28,7 @@ class CreateKategoriDokumenTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('kategori_dokumen');
+		Schema::drop('password_resets');
 	}
 
 }

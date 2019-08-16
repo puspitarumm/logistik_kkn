@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Admin;
+use App\User;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
@@ -13,39 +13,54 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $data['admin'] = Admin::orderBy('id_admin','desc')->paginate(10);
-        $data['admin_x'] = Admin::where('id_admin',10)->first();
+        $data['users'] = User::orderBy('id','desc')->get();
 		//dd($data['customer']);
 
 		return view('users', $data);
     }
+    
     public function create(Request $request)
     {
     	// dd($request->first_name);
-    	// query insert dengan eloquent
-    	$c = new Admin();
-        $c->id_admin = $request->id_admin;
-        $c->username = $request->username;
-        $c->password = $request->password;
-        $c->nama = $request->nama;
-        $c->email = $request->email;
-        $c->status = $request->status;
-		$c->save();
+        // query insert dengan eloquent
+        $this->validate($request,[
+			'name' => 'required|string',
+            'username' => 'required|string|max:15',
+            'email' => 'required|string',
+			'password' => 'required|min:8',
+		]);
+
+		if($request->has('password')) {
+			$data = $request->except('password');
+			$data['password'] = bcrypt($request->password);
+		} else {
+			$data = $request->except('password');
+		}
+
+		$user = User::create($data);
+
+		// \Flash::success('User berhasil ditambah!');
+    	// $c = new User();
+        // $c->id = $request->id;
+        // $c->name = $request->name;
+        // $c->username = $request->username;
+        // $c->email = $request->email;
+        // $c->password = $request->password;
+		// $c->save();
     	return redirect('users');
     }
-    public function update(Request $request, $id_admin){
-    	$c = Admin::where('id_admin',$id_admin)->first();
-		$c->username = $request->username;
-        $c->password = $request->password;
-        $c->nama = $request->nama;
+    public function update(Request $request, $id){
+    	$c = User::where('is',$id)->first();
+        $c->name = $request->name;
+        $c->username = $request->username;
         $c->email = $request->email;
-        $c->status = $request->status;
+        $c->password = $request->password;
 		$c->update();
-		return redirect('admin');
+		return redirect('users');
     }
 
-    public function delete($id_admin){
-    	Admin::where('id_admin',$id_admin)->delete();
+    public function delete($id){
+    	User::where('id',$id)->delete();
         return redirect('users');
     }
 }

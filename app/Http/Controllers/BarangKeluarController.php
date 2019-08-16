@@ -10,6 +10,10 @@ use App\http\Requests;
 
 class BarangKeluarController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
         $data['barang_keluar'] = BarangKeluar::orderBy('id_brg_keluar','desc')->paginate(10);
             $data['barang_keluar_x'] = BarangKeluar::where('id_brg_keluar',10)->first();

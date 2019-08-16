@@ -10,6 +10,10 @@ use App\http\Requests;
 
 class DataMahasiswaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
     $data['datamahasiswa'] = DataMahasiswa::orderBy('nim','desc')->paginate(10);
     $data['datamahasiswa_x'] = DataMahasiswa::where('nim',10)->first();

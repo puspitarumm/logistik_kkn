@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBarangTable extends Migration {
+class CreateDetailsbarangTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,12 @@ class CreateBarangTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('barang', function(Blueprint $table)
+		Schema::create('detailsbarang', function(Blueprint $table)
 		{
-			$table->integer('id_barang', true);
-			$table->string('nama_barang', 50);
+			$table->integer('id_details', true);
+			$table->integer('id_barang')->index('FK_BRG_DETAILS');
+			$table->integer('id_ukuran')->index('FK_DETAILS_UK');
 			$table->integer('stok');
-			$table->string('id_ukuran', 50);
-			$table->timestamps();
 		});
 	}
 
@@ -30,7 +29,7 @@ class CreateBarangTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('barang');
+		Schema::drop('detailsbarang');
 	}
 
 }

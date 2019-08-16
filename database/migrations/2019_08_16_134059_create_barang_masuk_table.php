@@ -14,11 +14,11 @@ class CreateBarangMasukTable extends Migration {
 	{
 		Schema::create('barang_masuk', function(Blueprint $table)
 		{
-			$table->string('id_brg_masuk', 50)->primary();
+			$table->integer('id_brg_masuk', true);
 			$table->date('tgl_masuk');
-			$table->integer('id_barang');
-			$table->string('nama_barang', 50);
-			$table->integer('jumlah_masuk');
+			$table->integer('id_barang')->index('FK_BARANGMASUK_BRG');
+			$table->integer('id_ukuran')->index('FK_UKURAN_BM');
+			$table->integer('jml_masuk');
 		});
 	}
 

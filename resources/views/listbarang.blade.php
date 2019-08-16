@@ -103,14 +103,7 @@
 					          <label for="name">Nama Barang:</label>
                     <input type="text" class="form-control" name="nama_barang" placeholder="nama barang" value="{{$data->nama_barang}}">
 					        </div>
-                  <div class="form-line">
-					          <label for="name">Stok:</label>
-                    <input type="text" class="form-control" name="stok" placeholder="stok" value="{{$data->stok}}">
-					        </div>
-                  <div class="form-line">
-					          <label for="name">Ukuran Barang:</label>
-                    <input type="text" class="form-control" name="ukuran_barang" placeholder="ukuran barang" value="{{$data->ukuran_barang}}">
-					        </div>
+                  
                 </div>
                 {{csrf_field()}}
 

@@ -13,8 +13,7 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Barang Masuk</h3>
-              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-              Tambahkan Data</button>
+              <a class="pull-right btn btn-default" href="{{ url('/barangmasuk/tambah_barangmasuk') }}">Tambahkan Data</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

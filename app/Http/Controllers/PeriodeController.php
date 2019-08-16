@@ -11,6 +11,10 @@ use Carbon\Carbon;
 
 class PeriodeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
 
         $data['periode'] = Periode::orderBy('id_periode','desc')->get();
@@ -27,8 +31,8 @@ class PeriodeController extends Controller
     	$d = new periode();
         $d->nama_periode = $request->nama_periode;
         $d->tahun = $request->tahun;
-        $d->tgl_mulai = $request->tgl_mulai;
-        $d->tgl_berakhir = $request->tgl_berakhir;
+        $d->tgl_mulai = date('Y-m-d', strtotime($request->tgl_mulai));
+        $d->tgl_berakhir = date('Y-m-d', strtotime($request->tgl_berakhir));
 		$d->save();
     	return redirect('periode');
     }

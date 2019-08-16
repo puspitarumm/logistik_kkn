@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateLokasiTable extends Migration {
+class CreateBarangTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,11 @@ class CreateLokasiTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('lokasi', function(Blueprint $table)
+		Schema::create('barang', function(Blueprint $table)
 		{
-			$table->integer('id_lokasi')->primary();
-			$table->string('nama_lokasi', 50);
+			$table->integer('id_barang', true);
+			$table->string('nama_barang', 50);
+			$table->timestamps();
 		});
 	}
 
@@ -27,7 +28,7 @@ class CreateLokasiTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('lokasi');
+		Schema::drop('barang');
 	}
 
 }

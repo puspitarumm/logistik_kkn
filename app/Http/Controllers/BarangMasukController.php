@@ -13,6 +13,10 @@ use App\Models\UkuranBarang;
 
 class BarangMasukController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
     $data['barang_masuk'] = BarangMasuk::orderBy('id_brg_masuk','desc')->with('barang','ukuran_barang')->get();
     $data['barang'] = Barang::all();
@@ -47,5 +51,9 @@ class BarangMasukController extends Controller
     public function delete($id_brg_masuk){
     	BarangMasuk::where('id_brg_masuk',$id_brg_masuk)->delete();
         return redirect('barangmasuk');
+    }
+
+    public function add_masuk(){
+        return view('barangmasuk.tambah_barangmasuk');
     }
 }

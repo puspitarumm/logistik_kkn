@@ -17,7 +17,7 @@ class CreateDocumentTable extends Migration {
 			$table->integer('id_dokumen', true);
 			$table->string('nama_dokumen', 50);
 			$table->integer('id_periode')->index('fk_periode_dokumen');
-			$table->binary('dokumen', 16777215);
+			$table->string('dokumen');
 		});
 	}
 

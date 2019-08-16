@@ -19,6 +19,10 @@ use Maatwebsite\Excel\Concerns\ToArray;
 
 class MahasiswaController extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
 	{
 		$mahasiswa = Mahasiswa::with('periode','ukuran_barang')->get();

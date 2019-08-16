@@ -45,7 +45,7 @@
                     <i class="glyphicon glyphicon-edit"></i></button>
                   <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger{{$data->id_periode}}">
                     <i class="glyphicon glyphicon-remove"></i></button>
-                  <a class='btn btn-info btn-xs' titlw='Detail Periode' href='".base_url()."administrator/edit_album/$row[id_album]'><span class='glyphicon glyphicon-list'></span></a>
+                  <!-- <a class='btn btn-info btn-xs' titlw='Detail Periode' href='".base_url()."administrator/edit_album/$row[id_album]'><span class='glyphicon glyphicon-list'></span></a> -->
                 </td>
                 </tr>
                 @endforeach
@@ -77,17 +77,27 @@
                    
                     <input type="text" class="form-control" name="tahun" placeholder="tahun">
 					        </div>
-                  <div class="form-line">
-					          <label for="name">Tanggal Mulai:</label>
-                    <br>
-                    <input type="date" class="form-control" name="tgl_mulai" placeholder="tanggal mulai" style="width: 30%; display: inline;">
-					        </div>
-                  <div class="form-line">
-					          <label for="name">Tanggal Berakhir:</label>
-                    <input type="date" class="form-control" name="tgl_berakhir" placeholder="tanggal berakhir" style="width: 30%">
-                    
+                  <div class="form-group">
+                    <label>Tanggal Mulai:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
                   </div>
+                  <input type="text" class="form-control pull-right" id="datepicker3" name="tgl_mulai"placeholder="tanggal mulai" >
                 </div>
+                <!-- /.input group -->
+              </div>
+                  
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="datepicker4" name="tgl_berakhir"placeholder="tanggal berakhir" >
+                </div>
+                <!-- /.input group -->
+              </div>
+                
                 {{csrf_field()}}
 
                 <!-- <p>One fine body&hellip;</p> -->
@@ -209,5 +219,22 @@ $('#datepicker2').datepicker({
       autoclose: true,
       format:"dd MM yyyy"
     })
+    $('#datepicker3').datepicker({
+      autoclose: true,
+      format:"dd MM yyyy"
+    })
+    $('#datepicker4').datepicker({
+      autoclose: true,
+      format:"dd MM yyyy"
+    })
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+
 </script>
 @endsection

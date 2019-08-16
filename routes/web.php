@@ -11,13 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('/auth.login');
-});
+// Route::get('/', function () {
+//     return view('/auth.login');
+// });
+Route::get('/', 'HomeController@checksession');
 
 Route::get('template', function(){
     return view('layouts.master');
 });
+// Route::get('/', 'DashboardController@checksession');
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('dashboard', 'DashboardController@index');
+    Route::get('listbarang','BarangController@index');
+});
+    
 
 // Route::group(['middleware' => ['web']], function() {
 //     Route::resource('barang','BarangController');
@@ -129,7 +137,13 @@ Route::get('dashboard', 'DashboardController@index');
 Route::get('dokumen2', 'Document2Controller@uploadFile');
 Route::post('upload', 'Document2Controller@StoreUploadFile');
 
-Auth::routes();
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('barangmasuk')->group(function() {
+    Route::get('tambah_barangmasuk','BarangMasukController@add_masuk');
+    Route::post('barangmasuk','BarangMasukController@index');
+    Route::post('save','BarangKeluarController@save_create');
+});

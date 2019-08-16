@@ -7,6 +7,7 @@
       
 @endsection
 @section('content')
+@include('layouts.notification')
     <!-- Main content -->
       <div class="row">
         <div class="col-xs-12">
@@ -25,6 +26,7 @@
                   <th>No</th>
                   <th>Nama Dokumen</th>
                   <th>Nama Periode</th>
+                  <th>Tahun</th>
                   <th>Dokumen</th>
                   <th>Aksi</th>
                 </tr>
@@ -37,10 +39,12 @@
                   <td>{{$no++}}</td>
                   <td>{{$data['nama_dokumen']}}</td>
                   <td>{{$data['periode']['nama_periode']}}</td>
-                  <td><a target='_BLANK' href="{{ Storage::url($data->dokumen) }}">{{$data['dokumen']}}</a></td>
+                  <td>{{$data['periode']['tahun']}}</td>
+                  <!-- <td><a target='_BLANK' href="{{ Storage::url($data->dokumen) }}">{{$data['dokumen']}}</a></td> -->
+                 <td><a target='_BLANK' href="{{ url('/data_file/'.$data->dokumen) }}">{{$data['dokumen']}}</a></td>
                   </td>
 
-                  <!-- <td><a href="{{ url('/data_file/'.$data->dokumen) }}"></a></td> -->
+                  
                   <td>
                   <a href="{{ Storage::url($data->dokumen) }}" title="View file {{ $data->nama_dokumen }}">
                                                 <i class="fa fa-eye"></i>
@@ -86,12 +90,23 @@
 					        </div>
                   <div class="form-line">
 					          <label for="name">Nama Periode:</label>
-                    <td><select class='form-control' name='id_periode' required>
+                    <td><select class='form-control' name='nama_periode' required>
                     <option value="">-- Select Periode --</option>
-                      @foreach($periode as $item)
-                      <option value="{{$item['id_periode']}}">{{$item['nama_periode']}}</option>
+                    <option value="Periode 1">Periode 1</option>
+                    <option value="Periode 2">Periode 2</option>
+                    <option value="Periode 3">Periode 3</option>
+                    <option value="Periode 4">Periode 4</option>
+                    <option value="Periode 5">Periode 5</option>
+                    </select>
+					        <td>
+                  </div>
+                  <div class="form-line">
+					          <label for="tahun">Tahun</label>
+                    <td><select class='form-control' name='tahun' required>
+                    @foreach($tahun as $key=>$value) 
+                      <option value="{{$value['tahun']}}">{{$value['tahun']}}</option>
                       @endforeach
-                      </select>
+                    </select>
 					        <td>
                   </div>
                   <div class="form-line">
@@ -129,15 +144,38 @@
 					          <label for="name">Nama Dokumen:</label>
                     <input type="text" class="form-control" name="nama_dokumen" placeholder="nama dokumen" value="{{$data->nama_dokumen}}">
 					        </div>
-                  <div class="form-line">
+
+                <div class="form-line">
 					          <label for="name">Nama Periode:</label>
-                    <input type="text" class="form-control" name="nama_periode" placeholder="nama periode" value="{{$data->nama_periode}}">
-					        </div>
+                    <td><select class='form-control' name='nama_periode' required>
+                    <option value="">-- Select Periode --</option>
+                    <option value="Periode 1">Periode 1</option>
+                    <option value="Periode 2">Periode 2</option>
+                    <option value="Periode 3">Periode 3</option>
+                    <option value="Periode 4">Periode 4</option>
+                    <option value="Periode 5">Periode 5</option>
+                    </select>
+					        <td>
+                  </div>
+                  <div class="form-line">
+					          <label for="tahun">Tahun</label>
+                    <td><select class='form-control' name='tahun' required>
+                    @foreach($tahun as $key=>$value) 
+                      <option value="{{$value['tahun']}}">{{$value['tahun']}}</option>
+                      @endforeach
+                    </select>
+					        <td>
+                  </div>
                   <div class="form-line">
 					          <label for="name">Dokumen:</label>
-                    <input type="text" class="form-control" name="dokumen" placeholder="dokumen" value="{{$data->dokumen}}">
-					        </div>
+                    <!-- <input type="file" class="form-control" name="dokumen" value="{{$data->dokumen}}">         -->
+                    <input type="file" name="dokumen" />
+              <img src="{{ url('/data_file/'.$data->dokumen) }}" class="img-thumbnail" width="100" />
+                        <input type="hidden" name="hidden_dokumen" value="{{ $data->dokumen }}" />
                 </div>
+                
+</div>
+
                 {{csrf_field()}}
 
                  

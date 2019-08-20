@@ -87,6 +87,8 @@ Route::get('barangkeluar', 'BarangKeluarController@index');
 Route::put('barangkeluar_create','BarangKeluarController@create')->name('create_brg_keluar');
 Route::post('print','BarangKeluarController@printPdf');
 Route::post('unggah','BarangKeluarController@uploadBukti');
+Route::get('hapus/{id}','BarangKeluarController@deleted');
+Route::get('hapus/unggahan/{id}','BarangKeluarController@hapus_unggahan');
 
 Route::put('barangkeluar_update/{id_brg_keluar}','BarangKeluarController@update')->name('update_brg_keluar');
 

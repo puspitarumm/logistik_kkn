@@ -44,4 +44,5 @@ class BarangAmbil extends Eloquent
 	{
 		return $this->belongsTo(\App\Models\Mahasiswa::class, 'niu');
 	}
+
 }

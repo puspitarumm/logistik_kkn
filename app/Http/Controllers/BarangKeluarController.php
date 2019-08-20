@@ -18,7 +18,7 @@ class BarangKeluarController extends Controller
 {
         public function index(){
             $data['ambil']=BarangAmbil::with('mahasiswa')->get();
-            // return $data;
+            // return $data['ambil'][0]['path'];
             return view('transaksi.barangkeluar', $data);
         }
         public function create(Request $request)
@@ -75,7 +75,6 @@ class BarangKeluarController extends Controller
             $b_req=$request->except('_token','niu','lokasi');
             $barang=Barang::all();
             $ukuran=UkuranBarang::all();
-            
             DB::beginTransaction();
             try{
                 $id_barang_ambil=BarangAmbil::where('niu',$request['niu'])->get();
@@ -102,8 +101,22 @@ class BarangKeluarController extends Controller
                                  $save=BarangKeluar::create($data);
 
                                  $d_kurang=DetailsBarang::where(['id_barang'=>$barang[$i]['id_barang'],'id_ukuran'=>$data['id_ukuran']=$ukuran[$j]['id_ukuran']])->get();
-                                 $kurang['stok']=intval($d_kurang[0]['stok'])-intval($value);
-                                 $save2=DetailsBarang::where(['id_barang'=>$barang[$i]['id_barang'],'id_ukuran'=>$data['id_ukuran']=$ukuran[$j]['id_ukuran']])->update($kurang);
+                                 if(count($d_kurang)!=0){
+                                    $kurang['stok']=intval($d_kurang[0]['stok'])-intval($value);
+                                    if ($kurang['stok']<0) {
+                                        session([
+                                            'error'  => ['Stok '.$barang[$i]['nama_barang'].' Kurang'],
+                                        ]);  
+                                        return redirect('barangkeluar'); 
+                                    } else {
+                                        $save2=DetailsBarang::where(['id_barang'=>$barang[$i]['id_barang'],'id_ukuran'=>$data['id_ukuran']=$ukuran[$j]['id_ukuran']])->update($kurang);    
+                                    }
+                                 }else{
+                                    session([
+                                        'error'  => [$barang[$i]['nama_barang'].' tidak memiliki Stok'],
+                                    ]);  
+                                    return redirect('barangkeluar');
+                                 }
                                 break;
                              }
                          }
@@ -141,6 +154,43 @@ class BarangKeluarController extends Controller
             }else{
                 session([
                     'error'  => ['Unggah gagal']
+                ]);
+            }
+            return redirect()->back();
+        }
+
+        public function deleted($id){
+            DB::beginTransaction();
+            try{
+                Barangkeluar::where('id_barang_ambil',$id)->delete();
+                BarangAmbil::where('id_ambil',$id)->delete();
+                DB::commit();
+                session([
+                    'success'  => ['Data berhasil dihapus'],
+                ]);
+            }catch (\Exception $e) {
+                DB::rollback();
+                session([
+                    'error'  => ['Data Gagal Terhapus'],
+                ]);
+            }
+            return redirect()->back();
+        }
+
+        public function hapus_unggahan($id){
+            DB::beginTransaction();
+            try{
+                $data = BarangAmbil::where('id_ambil',$id)->first();
+                $data->path = null;
+                $data->update(); 
+                DB::commit();
+                session([
+                    'success'  => ['Unggahan berhasil dihapus'],
+                ]);
+            }catch (\Exception $e){
+                DB::rollback();
+                session([
+                    'error'=> ['Unggahan gagal dihapus'],
                 ]);
             }
             return redirect()->back();

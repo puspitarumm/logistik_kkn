@@ -82,6 +82,18 @@ Route::put('barangmasuk_update/{id_brg_masuk}','BarangMasukController@update')->
 
 Route::delete('barangmasuk_delete/{id_brg_masuk}','BarangMasukController@delete')->name('delete_brg_msk');
 
+
+Route::get('barangkeluar', 'BarangKeluarController@index');
+Route::put('barangkeluar_create','BarangKeluarController@create')->name('create_brg_keluar');
+Route::post('print','BarangKeluarController@printPdf');
+Route::post('unggah','BarangKeluarController@uploadBukti');
+Route::get('hapus/{id}','BarangKeluarController@deleted');
+Route::get('hapus/unggahan/{id}','BarangKeluarController@hapus_unggahan');
+
+Route::put('barangkeluar_update/{id_brg_keluar}','BarangKeluarController@update')->name('update_brg_keluar');
+
+Route::delete('barangkeluar_delete/{id_brg_keluar}','BarangKeluarController@delete')->name('delete_brg_keluar');
+
 Route::get('users', 'AdminController@index');
 
 Route::put('users_create','AdminController@create')->name('create_adm');

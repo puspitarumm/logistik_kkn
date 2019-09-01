@@ -46,13 +46,20 @@
                               <button class="btn btn-success" type="submit">unduh</button>
                           </form>
                         </td>
+                        @if ($item['path'])
+                        <td>
+                          <button class="btn btn-warning" data-target="#modal-hp-unggah{{$item['id_ambil']}}" data-toggle="modal">Hapus Unggahan</button>
+                        </td>
+                        @else
                         <td>
                           <button class="btn btn-info" data-target="#modal-warning{{$item['id_ambil']}}" data-toggle="modal">unggah</button>
                         </td>
+                        @endif
                         <td>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                              </div>
+                              <a class="btn btn-danger" data-toggle="modal" data-target="#modal-danger{{$item['id_ambil']}}">
+                                <i class="glyphicon glyphicon-trash"></i></a>
+                            </div>
                         </td>
                       </tr>
                   @endforeach
@@ -93,6 +100,54 @@
               </div>
               </div>
             <!-- /modal -->
+
+          <!-- modal hapus data -->
+            <div class="modal fade" id="modal-danger{{$item['id_ambil']}}" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                  aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Peringatan</h4>
+                  </div>
+                      <div class="modal-body text-center">
+                          <span class="fa fa-exclamation-triangle fa-2x" style="color: orange;"></span>
+                    
+                          <h5>Apakah anda yakin akan menghapus data ini?</h5>
+                        
+                      </div>
+                      <div class="modal-footer">
+                        <a href="{{url('hapus/'.$item['id_ambil'])}}" class="btn btn-danger waves-effect">HAPUS</a>
+                          <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">BATAL</button>
+                      </div>         
+                  </div>
+              </div>
+          </div>
+          <!-- /modal hapus data -->
+
+          <!-- modal hapus unggahan -->
+          <div class="modal fade" id="modal-hp-unggah{{$item['id_ambil']}}" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                  aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Peringatan</h4>
+                  </div>
+                      <div class="modal-body text-center">
+                          <span class="fa fa-exclamation-triangle fa-2x" style="color: orange;"></span>
+                    
+                          <h5>Apakah anda yakin akan menghapus unggahan ini?</h5>
+                        
+                      </div>
+                      <div class="modal-footer">
+                        <a href="{{url('hapus/unggahan/'.$item['id_ambil'])}}" class="btn btn-danger waves-effect">HAPUS</a>
+                          <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">BATAL</button>
+                      </div>         
+                  </div>
+              </div>
+          </div>
+          <!-- /modal hapus unggahan -->
             @endforeach
           </div>
           <!-- /.box -->

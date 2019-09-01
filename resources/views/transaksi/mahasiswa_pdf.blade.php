@@ -11,8 +11,8 @@
 		}
 	</style>
 	<center>
-        <h5>Tanda Terima Kaos dan Topi</h5>
-        <h5>KKN PPM UGM Tahun {{$mahasiswa[0]['periode']['tahun']}} {{$mahasiswa[0]['periode']['nama_periode']}}</h5>
+        <h4>Tanda Terima Kaos dan Topi</h4>
+        <h4>KKN PPM UGM Tahun {{$mahasiswa[0]['periode']['tahun']}} {{$mahasiswa[0]['periode']['nama_periode']}}</h4>
 	</center>
  
 	<table class='table table-bordered'>
@@ -23,6 +23,7 @@
 				<th>Nama</th>
 				<th>Fakultas</th>
 				<th>Lokasi</th>
+				<th>Ukuran Kaos</th>
 				<th>TTD</th>
 			</tr>
 		</thead>
@@ -35,11 +36,12 @@
 				<td>{{$m->nama}}</td>
 				<td>{{$m->fakultas}}</td>
 				<td>{{$m->lokasi}}</td>
+				<td>{{$m['ukuran_barang']['ukuran_barang']}}</td>
 				<td></td>
 			</tr>
 			@endforeach
 		</tbody>
 	</table>
- 
+ </div>
 </body>
 </html>

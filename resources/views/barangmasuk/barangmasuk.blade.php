@@ -6,15 +6,17 @@
       </h1>
       
 @endsection
+
 @section('content')
+
+
     <!-- Main content -->
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Barang Masuk</h3>
-              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-              Tambahkan Data</button>
+              <a class="pull-right btn btn-default" href="{{ url('/barangmasuk/tambah_barangmasuk') }}">Tambahkan Data</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -35,11 +37,10 @@
                 ?>
                 @foreach($barang_masuk as $data)
                 <tr>
-                  <td>{{$no++}}</td>
-                  <td>{{date('d F Y', strtotime($data->tgl_masuk))}}</td>
+                  <td>{{$i++}}</td>
                   <td>{{$data['barang']['nama_barang']}}</td>
                   <td>{{$data['ukuran']['ukuran_barang']}}</td>
-                  <td>{{$data->jumlah_masuk}}</td>
+                  <td>{{$data->jml_masuk}}</td>
                   <td><button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->id_brg_masuk}}">
                     <i class="glyphicon glyphicon-pencil"></i></button>
 				          <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger{{$data->id_brg_masuk}}">

@@ -7,6 +7,7 @@
       
 @endsection
 @section('content')
+@include('layouts.notification')
     <!-- Main content -->
       <div class="row">
         <div class="col-xs-12">
@@ -17,12 +18,11 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
+              <table id="example1" class="table table-bordered table-hover">
 
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Tanggal Masuk</th>
                   <th>Nama Barang</th>
                   <th>Ukuran Barang</th>
                   <th>Jumlah Masuk</th>
@@ -35,10 +35,9 @@
                 @foreach($barang_masuk as $data)
                 <tr>
                   <td>{{$no++}}</td>
-                  <td>{{date('d F Y', strtotime($data->tgl_masuk))}}</td>
                   <td>{{$data['barang']['nama_barang']}}</td>
-                  <td>{{$data['ukuran']['ukuran_barang']}}</td>
-                  <td>{{$data->jumlah_masuk}}</td>
+                  <td>{{$data['ukuran_barang']['ukuran_barang']}}</td>
+                  <td>{{$data->jml_masuk}}</td>
                   <td><button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->id_brg_masuk}}">
                     <i class="glyphicon glyphicon-pencil"></i></button>
 				          <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger{{$data->id_brg_masuk}}">
@@ -190,3 +189,25 @@
 
  
 @endsection
+
+@section('custom-script')
+<!-- DataTables -->
+<script src="{{asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <script type="text/javascript">
+        var DatatablesDataSourceHtml = {
+        init: function() {
+            $("#example1").DataTable({
+                searching : true,
+                lengthChange : true,
+                paging : true,
+                info : true,
+                responsive: !0,
+            })
+        }
+    };
+    jQuery(document).ready(function() {
+        DatatablesDataSourceHtml.init()
+    });    
+    </script>
+  @endsection

@@ -12,10 +12,10 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Manajemen Dokumen</h3>
+              <h3 class="box-title">Data Mahasiswa</h3>
               <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
               Tambahkan Data</button>
-			  </div>
+			</div>
 
 		{{-- notifikasi form validasi --}}
 		@if ($errors->has('file'))
@@ -66,8 +66,9 @@
 
 		
 		<a href="/siswa/export_excel" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
-
-		<table class='table table-bordered'>
+		<div class="box-body">
+              <table id="example1" class="table table-bordered table-hover">
+		
 			<thead>
 				<tr>
 					<th>No</th>
@@ -98,6 +99,8 @@
 			</tbody>
 		</table>
 	</div>
+	</div>
+	</div>
 
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -108,3 +111,24 @@
 </html>
 
 @endsection
+@section('custom-script')
+<!-- DataTables -->
+<script src="{{asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <script type="text/javascript">
+        var DatatablesDataSourceHtml = {
+        init: function() {
+            $("#example1").DataTable({
+                searching : true,
+                lengthChange : true,
+                paging : true,
+                info : true,
+                responsive: !0,
+            })
+        }
+    };
+    jQuery(document).ready(function() {
+        DatatablesDataSourceHtml.init()
+    });    
+    </script>
+  @endsection

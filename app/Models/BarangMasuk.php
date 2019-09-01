@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 16 Aug 2019 14:29:38 +0000.
+ * Date: Mon, 19 Aug 2019 14:18:39 +0000.
  */
 
 namespace App\Models;
@@ -13,10 +13,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * Class BarangMasuk
  * 
  * @property int $id_brg_masuk
- * @property \Carbon\Carbon $tgl_masuk
  * @property int $id_barang
  * @property int $id_ukuran
  * @property int $jml_masuk
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\Barang $barang
  * @property \App\Models\UkuranBarang $ukuran_barang
@@ -27,7 +28,6 @@ class BarangMasuk extends Eloquent
 {
 	protected $table = 'barang_masuk';
 	protected $primaryKey = 'id_brg_masuk';
-	public $timestamps = false;
 
 	protected $casts = [
 		'id_barang' => 'int',
@@ -35,12 +35,7 @@ class BarangMasuk extends Eloquent
 		'jml_masuk' => 'int'
 	];
 
-	protected $dates = [
-		'tgl_masuk'
-	];
-
 	protected $fillable = [
-		'tgl_masuk',
 		'id_barang',
 		'id_ukuran',
 		'jml_masuk'

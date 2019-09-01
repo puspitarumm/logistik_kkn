@@ -67,9 +67,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i>Laporan Stok Barang</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i>Laporan Barang Masuk</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i>Laporan Barang Keluar</a></li>
+            <li><a href="{{ url('/laporan/stokbarang')}}"><i class="fa fa-circle-o"></i>Laporan Stok Barang</a></li>
+            <li><a href="{{ url('/laporan/lap_brg_masuk')}}"><i class="fa fa-circle-o"></i>Laporan Barang Masuk</a></li>
+            <li><a href="{{ url('/laporan/lap_brg_keluar')}}"><i class="fa fa-circle-o"></i>Laporan Barang Keluar</a></li>
           </ul>
         </li>
         <li>

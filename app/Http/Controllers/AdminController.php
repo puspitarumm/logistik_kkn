@@ -50,7 +50,7 @@ class AdminController extends Controller
     	return redirect('users');
     }
     public function update(Request $request, $id){
-    	$c = User::where('is',$id)->first();
+    	$c = User::where('id',$id)->first();
         $c->name = $request->name;
         $c->username = $request->username;
         $c->email = $request->email;

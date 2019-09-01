@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="{{asset('AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('AdminLTE/bower_components/font-awesome/css/font-awesome.min.css')}}">
+  <link rel="stylesheet" href="{{asset('AdminLTE/bower_components/font-awesome2/css/font-awesome.min.css')}}">
+  <link rel="stylesheet" href="{{asset('AdminLTE/bower_components/font-awesome2/css/font-awesome.css')}}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{asset('AdminLTE/bower_components/Ionicons/css/ionicons.min.css')}}">
   <!-- Theme style -->
@@ -28,6 +30,7 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
   <link rel="stylesheet" href="{{asset('AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{asset('AdminLTE/bower_components/Ionicons/css/ionicons.min.css')}}">
   
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -109,6 +112,8 @@
 <!-- DataTables -->
 <script src="{{asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{asset('AdminLTE/bower_components/chart.js/Chart.js')}}"></script>
+<script src="{{asset('AdminLTE/bower_components/raphael/raphael.min.js')}}"></script>
 @yield('custom-script')
 </body>
 </html>

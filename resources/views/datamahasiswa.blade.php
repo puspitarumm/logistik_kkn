@@ -18,7 +18,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
+              <table id="example1" class="table table-bordered table-hover">
 
               <thead>
                 <tr>
@@ -195,3 +195,24 @@
            @endforeach
  
 @endsection
+@section('custom-script')
+<!-- DataTables -->
+<script src="{{asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <script type="text/javascript">
+        var DatatablesDataSourceHtml = {
+        init: function() {
+            $("#example1").DataTable({
+                searching : true,
+                lengthChange : true,
+                paging : true,
+                info : true,
+                responsive: !0,
+            })
+        }
+    };
+    jQuery(document).ready(function() {
+        DatatablesDataSourceHtml.init()
+    });    
+    </script>
+  @endsection

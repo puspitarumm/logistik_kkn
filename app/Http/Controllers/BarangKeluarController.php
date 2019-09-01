@@ -74,13 +74,12 @@ class BarangKeluarController extends Controller
             // return $request;
             $b_req=$request->except('_token','niu','lokasi');
             $barang=Barang::all();
-            $ukuran=UkuranBarang::all();
-            
+            $ukuran=UkuranBarang::all(); 
             DB::beginTransaction();
             try{
                 $id_barang_ambil=BarangAmbil::where('niu',$request['niu'])->get();
                 // return $id_barang_ambil;
-                if($id_barang_ambil){
+                if(!$id_barang_ambil){
                     $c = new BarangAmbil();
                     $c->niu = $request->niu;
                     $c->kode_lokasi = $request->lokasi;
@@ -88,12 +87,13 @@ class BarangKeluarController extends Controller
                     $id_barang_ambil=BarangAmbil::where('niu',$request['niu'])->get();
                 }
                 // return $id_barang_ambil;
+                $counter=0;
                 for($i=0;$i<count($barang);$i++){
                     $leng[$i]=strlen($barang[$i]['nama_barang']);
                     foreach($b_req as $key=>$value){
                      if(substr($key,0,$leng[$i])==str_replace(' ','_',$barang[$i]['nama_barang'])){
                          for($j=0;$j<count($ukuran);$j++){
-                             if(substr($key,$leng[$i])==$ukuran[$j]['ukuran_barang'] && $value!=0){
+                             if(substr($key,$leng[$i])==$ukuran[$j]['ukuran_barang'] && $value!=null){
                                  $data['id_barang_ambil']=$id_barang_ambil[0]['id_ambil'];
                                  $data['id_barang']=$barang[$i]['id_barang'];
                                  $data['id_ukuran']=$ukuran[$j]['id_ukuran'];
@@ -105,6 +105,7 @@ class BarangKeluarController extends Controller
                                  $kurang['stok']=intval($d_kurang[0]['stok'])-intval($value);
                                  $save2=DetailsBarang::where(['id_barang'=>$barang[$i]['id_barang'],'id_ukuran'=>$data['id_ukuran']=$ukuran[$j]['id_ukuran']])->update($kurang);
                                 break;
+                                $counter++;
                              }
                          }
                      }
@@ -112,9 +113,16 @@ class BarangKeluarController extends Controller
                 }
                 // return 0;
                 DB::commit();
-                session([
-                    'success'  => ['Data Tersimpan'],
-                ]);
+                if($counter==0){
+                    session([
+                        'error'  => ['Tidak ada yang disimpan'],
+                    ]);
+                }else{
+                    session([
+                        'success'  => ['Data Tersimpan'],
+                    ]);
+                }
+
                 return redirect('barangkeluar');
             }catch (\Exception $e) {
                 DB::rollback();
@@ -124,7 +132,7 @@ class BarangKeluarController extends Controller
         }
 
         public function printPdf(Request $request){
-            $data['mahasiswa']=Mahasiswa::where('kode_lokasi',$request['lokasi'])->where('id_periode',$request['periode'])->with('periode')->get();
+            $data['mahasiswa']=Mahasiswa::where('kode_lokasi',$request['lokasi'])->where('id_periode',$request['periode'])->where('id_ukuran',$request['ukuran_barang'])->with('periode','ukuran_barang')->get();
             $pdf = PDF::loadView('transaksi.mahasiswa_pdf', $data);
             return $pdf->download('Bukti Pengambilan.pdf');
         }

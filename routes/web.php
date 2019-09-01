@@ -23,7 +23,7 @@ Route::get('template', function(){
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('dashboard', 'DashboardController@index');
-    Route::get('listbarang','BarangController@index');
+    Route::get('dashboard','DashboardController@getChart');
 });
     
 
@@ -46,7 +46,7 @@ Route::put('barang_update/{id_barang}','BarangController@update')->name('update_
 Route::delete('barang_delete/{id_barang}','BarangController@delete')->name('delete_brg');
 
 
-Route::get('dosen', 'DashboardController@index');
+Route::get('dashboard', 'DashboardController@getChart');
 
 
 Route::get('ukuranbarang', 'UkuranBarangController@index');
@@ -81,16 +81,6 @@ Route::put('barangmasuk_create','BarangMasukController@create')->name('create_br
 Route::put('barangmasuk_update/{id_brg_masuk}','BarangMasukController@update')->name('update_brg_msk');
 
 Route::delete('barangmasuk_delete/{id_brg_masuk}','BarangMasukController@delete')->name('delete_brg_msk');
-
-
-Route::get('barangkeluar', 'BarangKeluarController@index');
-Route::put('barangkeluar_create','BarangKeluarController@create')->name('create_brg_keluar');
-Route::post('print','BarangKeluarController@printPdf');
-Route::post('unggah','BarangKeluarController@uploadBukti');
-
-Route::put('barangkeluar_update/{id_brg_keluar}','BarangKeluarController@update')->name('update_brg_keluar');
-
-Route::delete('barangkeluar_delete/{id_brg_keluar}','BarangKeluarController@delete')->name('delete_brg_keluar');
 
 Route::get('users', 'AdminController@index');
 
@@ -142,13 +132,36 @@ Route::post('upload', 'Document2Controller@StoreUploadFile');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('home', 'HomeController@getChart')->name('chart');
 
 Route::prefix('barangmasuk')->group(function() {
     Route::get('tambah_barangmasuk','BarangMasukController@add_masuk');
-    Route::post('barangmasuk','BarangMasukController@index');
+    // Route::get('barangmasuk','BarangMasukController@index');
+    Route::post('save','BarangMasukController@tambah_save')->name('create_save');
 });
+
 Route::prefix('transaksi')->group(function() {
     Route::get('add','BarangKeluarController@add_keluar');
     Route::post('create','BarangKeluarController@add_create');
     Route::post('save','BarangKeluarController@save_create');
+});
+
+
+Route::get('barangkeluar', 'BarangKeluarController@index');
+// Route::put('barangkeluar_create','BarangKeluarController@create')->name('create_brg_keluar');
+Route::post('print','BarangKeluarController@printPdf');
+Route::post('unggah','BarangKeluarController@uploadBukti');
+
+Route::put('barangkeluar_update/{id_brg_keluar}','BarangKeluarController@update')->name('update_brg_keluar');
+
+Route::delete('barangkeluar_delete/{id_brg_keluar}','BarangKeluarController@delete')->name('delete_brg_keluar');
+
+Route::prefix('laporan')->group(function() {
+    Route::get('stokbarang','LaporanController@index');
+    Route::get('lap_brg_masuk','LaporanController@lap_brg_masuk')->name('laporan.lap_brg_masuk');
+    Route::get('lap_brg_keluar','LaporanController@lap_brg_keluar')->name('laporan.lap_brg_keluar');
+    Route::get('stok_cetak_pdf','LaporanController@cetak_pdf_stok');
+    Route::get('brg_masuk_pdf','LaporanController@barangmasukPdf')->name('brg_masuk.pdf');
+    Route::post('save','BarangKeluarController@save_create');
+    Route::post('print','LaporanController@printPdf');
 });

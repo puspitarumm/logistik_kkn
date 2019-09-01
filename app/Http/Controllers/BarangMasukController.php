@@ -10,6 +10,8 @@ use App\http\Requests;
 use Carbon;
 use App\Models\Barang;
 use App\Models\UkuranBarang;
+use App\Models\DetailsBarang;
+use DB;
 
 class BarangMasukController extends Controller
 {
@@ -54,6 +56,48 @@ class BarangMasukController extends Controller
     }
 
     public function add_masuk(){
-        return view('barangmasuk.tambah_barangmasuk');
+        $data['ukuran']=UkuranBarang::all();
+        $data['barang']=Barang::all();
+        return view('barangmasuk.tambah_barangmasuk',$data);
     }
+
+    public function tambah_save(Request $request){
+        // return $request;
+        $b_req=$request->except('_token');
+        $barang=Barang::all();
+        $ukuran=UkuranBarang::all(); 
+        
+        DB::beginTransaction();
+        try{
+            for($i=0;$i<count($barang);$i++){ 
+                $leng[$i]=strlen($barang[$i]['nama_barang']);
+                foreach($b_req as $key=>$value){
+                    if(substr($key,0,$leng[$i])==str_replace('','_',$barang[$i]['nama_barang'])){
+                        for($j=0;$j<count($ukuran);$j++){
+                            if(substr($key,$leng[$i])==$ukuran[$j]['ukuran_barang'] && $value!=0){
+                                 $data['id_barang']=$barang[$i]['id_barang'];
+                                 $data['id_ukuran']=$ukuran[$j]['id_ukuran'];
+                                 $data['jml_masuk']=intval($value);
+                                return $data;
+                                 $save=BarangMasuk::create($data);
+
+                                 $d_tambah=DetailsBarang::where(['id_barang'=>$barang[$i]['id_barang'],'id_ukuran'=>$data['id_ukuran']=$ukuran[$j]['id_ukuran']])->get();
+                                 $tambah['stok']=intval($d_tambah[0]['stok'])+intval($value);
+                                 $save2=DetailsBarang::where(['id_barang'=>$barang[$i]['id_barang'],'id_ukuran'=>$data['id_ukuran']=$ukuran[$j]['id_ukuran']])->update($tambah);
+                                break;
+                                }
+                        }
+                    }
+                }
+            }
+            DB::commit();
+                session([
+                    'success'  => ['Data Tersimpan'],
+                ]);
+                return redirect('barangmasuk');
+            }catch (\Exception $e) {
+                DB::rollback();
+                return 'no';
+            }
+        }
 }

@@ -126,7 +126,7 @@
 					        </div>
                   <div class="form-line">
 					          <label for="name">Password:</label>
-                    <input type="text" class="form-control" name="password" placeholder="password">
+                    <input type="password" class="form-control" name="password" placeholder="password">
 					        </div>
                 </div>
                 {{csrf_field()}}

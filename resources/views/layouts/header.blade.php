@@ -25,10 +25,10 @@
         
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{url('./images/girl.png')}}" class="user-image" alt="User Image">
-              <span class="hidden-xs">Arum Puspitasari</span>
-            </a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+                            
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" style="width:10px" href="{{ route('logout') }}"
                 onclick="event.preventDefault();

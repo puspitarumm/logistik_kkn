@@ -6,6 +6,8 @@
       </h1>
       
 @endsection
+@section('transaksi','active')
+@section('barangmasuk','active')
 
 @section('content')
 
@@ -123,25 +125,17 @@
               <div class="modal-body">
               <form method="post" action="{{ route('update_brg_msk', $data['id_brg_masuk']) }}">
 				        <div class="form-group">
-					        <div class="form-line">
-					          <label for="name">Tanggal Masuk:</label>
-                    <input type="date" class="form-control" name="tgl_masuk" placeholder="tanggal masuk" value="value="{{ Carbon\Carbon::parse($data->tgl_masuk)->format('m/d/Y') }}"">
-					        </div>
-                  <div class="form-line">
-					          <label for="name">Id Barang:</label>
-                    <input type="text" class="form-control" name="id_barang" placeholder="id barang" value="{{$data->id_barang}}">
-					        </div>
                   <div class="form-line">
 					          <label for="name">Nama Barang:</label>
-                    <input type="text" class="form-control" name="nama_barang" placeholder="nama barang" value="{{$data->nama_barang}}">
+                    <input type="text" class="form-control" name="nama_barang" placeholder="nama barang" value="{{$data['barang']['nama_barang']}}">
 					        </div>
                   <div class="form-line">
 					          <label for="name">Jumlah Masuk:</label>
-                    <input type="text" class="form-control" name="jumlah_masuk" placeholder="jumlah masuk" value="{{$data->jumlah_masuk}}">
+                    <input type="text" class="form-control" name="jml_masuk" placeholder="jumlah masuk" value="{{$data->jml_masuk}}">
 					        </div>
                   <div class="form-line">
 					          <label for="name">Ukuran Barang:</label>
-                    <input type="text" class="form-control" name="ukuran_barang" placeholder="ukuran barang" value="{{$data->ukuran_barang}}">
+                    <input type="text" class="form-control" name="ukuran_barang" placeholder="ukuran barang" value="{{$data['ukuran_barang']['ukuran_barang']}}">
 					        </div>
                 </div>
                 {{csrf_field()}}

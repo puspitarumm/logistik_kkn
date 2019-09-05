@@ -40,6 +40,7 @@ class Mahasiswa extends Eloquent
 	];
 
 	protected $fillable = [
+		'niu',
 		'nama',
 		'fakultas',
 		'lokasi',

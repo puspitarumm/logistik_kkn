@@ -16,9 +16,13 @@ use DB;
 use PDF;
 class BarangKeluarController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
         public function index(){
             $data['ambil']=BarangAmbil::with('mahasiswa')->get();
-            // return $data['ambil'][0]['path'];
+            // return $data['ambil'];
             return view('transaksi.barangkeluar', $data);
         }
         public function create(Request $request)
@@ -100,8 +104,9 @@ class BarangKeluarController extends Controller
                                  $data['jml_keluar']=intval($value);
                                 //  return $data;
                                  $save=BarangKeluar::create($data);
-
+                                // return $save;
                                  $d_kurang=DetailsBarang::where(['id_barang'=>$barang[$i]['id_barang'],'id_ukuran'=>$data['id_ukuran']=$ukuran[$j]['id_ukuran']])->get();
+                                //  return $d_kurang;
                                  if(count($d_kurang)!=0){
                                     $kurang['stok']=intval($d_kurang[0]['stok'])-intval($value);
                                     if ($kurang['stok']<0) {
@@ -118,14 +123,15 @@ class BarangKeluarController extends Controller
                                     ]);  
                                     return redirect('barangkeluar');
                                  }
+                                 $counter++;
                                 break;
-                                $counter++;
+                                
                              }
                          }
                      }
                     }
                 }
-                // return 0;
+                // return $counter;
                 DB::commit();
                 if($counter==0){
                     session([
@@ -205,5 +211,11 @@ class BarangKeluarController extends Controller
             return redirect()->back();
         }
 
+        public function history($niu){
+            $data['mahasiswa']=BarangAmbil::where('niu',$niu)->with('mahasiswa')->get();
+            $data['history']=BarangKeluar::where('id_barang_ambil',$data['mahasiswa'][0]['id_ambil'])->with('barang','ukuran_barang')->get();
+            // return $data;
+            return view('transaksi.history_keluar',$data);
+        }
     
 }

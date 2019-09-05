@@ -6,6 +6,7 @@
       </h1>
       
 @endsection
+@section('users','active')
 @section('content')
     <!-- Main content -->
       <div class="row">

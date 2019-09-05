@@ -6,6 +6,8 @@
       </h1>
       
 @endsection
+@section('laporan','active')
+@section('stok','active')
 @section('content')
 
 <!-- Main content -->

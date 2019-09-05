@@ -6,6 +6,8 @@
       </h1>
       
 @endsection
+@section('data_master','active')
+@section('data_master3','active')
 @section('content')
 
 <!-- Main content -->
@@ -40,9 +42,9 @@
                   <td>{{$data['ukuran_barang']['ukuran_barang']}}</td>
                   <td>{{$data['stok']}}</td>
                   <td>
-                  <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->id_barang}}">
+                  <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->id_details}}">
                     <i class="glyphicon glyphicon-pencil"></i></button>
-				          <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger{{$data->id_barang}}">
+				          <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger{{$data->id_details}}">
                   <i class="glyphicon glyphicon-trash"></i></button>
             </td>
                 </tr>
@@ -117,7 +119,7 @@
 
            @foreach($detailsbarang as $data)
 
-          <div class="modal fade" id="modal-warning{{$data->id_barang}}" tabindex="-1" role="dialog">
+          <div class="modal fade" id="modal-warning{{$data->id_details}}" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -126,20 +128,31 @@
                 <h4 class="modal-title">Edit</h4>
               </div>
               <div class="modal-body">
-              <form method="post" action="{{ route('update_brg', $data['id_barang']) }}">
+              <form method="post" action="{{ route('update_details', $data['id_details']) }}">
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Nama Barang:</label>
-                    <input type="text" class="form-control" name="nama_barang" placeholder="nama barang" value="{{$data['barang']['nama_barang']}}">
+                    <select class="form-control" name="id_barang">
+                                
+                                @foreach($barang as $item)
+                                <option value="{{$item['id_barang']}}" @if ($item['nama_barang']==$data['barang']['nama_barang']) selected @endif>{{$item['nama_barang']}}</option>
+                                @endforeach
+                            </select>
+					        </div>
+                  <div class="form-line">
+					          <label for="name">Ukuran Barang:</label>
+                    <select class="form-control" name="id_ukuran">
+                                
+                                @foreach($ukuran_barang as $item)
+                                <option value="{{$item['id_ukuran']}}" @if ($item['ukuran_barang']==$data['ukuran_barang']['ukuran_barang']) selected @endif>{{$item['ukuran_barang']}}</option>
+                                @endforeach
+                            </select>
 					        </div>
                   <div class="form-line">
 					          <label for="name">Stok:</label>
                     <input type="text" class="form-control" name="stok" placeholder="stok" value="{{$data->stok}}">
 					        </div>
-                  <div class="form-line">
-					          <label for="name">Ukuran Barang:</label>
-                    <input type="text" class="form-control" name="ukuran_barang" placeholder="ukuran barang" value="{{$data['ukuran_barang']['ukuran_barang']}}">
-					        </div>
+                  
                 </div>
                 {{csrf_field()}}
 
@@ -161,7 +174,7 @@
 @endforeach
 
 @foreach($detailsbarang as $data)
-             <div class="modal fade" id="modal-danger{{$data->id_barang}}" tabindex="-1" role="dialog">
+             <div class="modal fade" id="modal-danger{{$data->id_details}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
 						        <div class="modal-header">
@@ -169,7 +182,7 @@
 						                        aria-hidden="true">&times;</span></button>
 						            <h4 class="modal-title">Peringatan</h4>
 						        </div>
-						        <form action="{{route('delete_brg', $data->id_barang)}}" method="post">
+						        <form action="{{route('delete_details', $data->id_details)}}" method="post">
 						            <div class="modal-body text-center">
 						                <span class="fa fa-exclamation-triangle fa-2x" style="color: orange;"></span>
 						          

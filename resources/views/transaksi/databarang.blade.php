@@ -7,6 +7,8 @@
       
 @endsection
 @section('content')
+@section('transaksi','active')
+@section('barangkeluar','active')
 @include('layouts.notification')
   
   <!-- Main content -->

@@ -6,6 +6,8 @@
       </h1>
       
 @endsection
+@section('data_master','active')
+@section('data_master4','active')
 @section('content')
 
 	 <div class="row">
@@ -65,7 +67,7 @@
 
 
 		
-		<a href="/siswa/export_excel" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
+		<a href="/mahasiswa/export_excel" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
 		<div class="box-body">
               <table id="example1" class="table table-bordered table-hover">
 		

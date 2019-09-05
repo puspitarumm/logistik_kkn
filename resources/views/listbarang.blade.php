@@ -6,6 +6,8 @@
       </h1>
       
 @endsection
+@section('data_master','active')
+@section('data_master1','active')
 @section('content')
     <!-- Main content -->
       <div class="row">

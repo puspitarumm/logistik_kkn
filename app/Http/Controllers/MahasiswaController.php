@@ -14,6 +14,7 @@ use DB;
 use Session;
 use App\Imports\MahasiswaImport;
 use Maatwebsite\Excel\Concerns\ToArray;
+use App\Exports\MahasiswaExport;
 
 
 
@@ -58,6 +59,10 @@ class MahasiswaController extends Controller
 
 		// alihkan halaman kembali
 		return redirect('/mahasiswa');
+	}
+	public function export_excel()
+	{
+		return Excel::download(new MahasiswaExport, 'mahasiswa.xlsx');
 	}
 
 	

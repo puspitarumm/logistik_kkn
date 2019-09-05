@@ -4,8 +4,9 @@
         Dashboard
         <small>Control Panel</small>
       </h1>
-      
 @endsection
+@section('data_master','active')
+@section('data_master2','active')
 @section('content')
     <!-- Main content -->
       <div class="row">

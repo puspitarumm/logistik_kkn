@@ -15,6 +15,7 @@
       </h1>
       
 @endsection
+@section('dashboard','active')
 @section('content')
  <!-- Main content -->
  <section class="content">

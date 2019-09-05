@@ -6,6 +6,8 @@
       </h1>
       
 @endsection
+@section('laporan','active')
+@section('barang_masuk','active')
 @section('content')
 <div class="box box-default">
         <div class="box-header with-border">
@@ -86,7 +88,7 @@
               </table>
             </div>
             </form>
-            <form action="{{url('laporan/print')}}" method="post">
+            <form action="{{url('laporan/brg_masukprint')}}" method="post">
               {{csrf_field()}}
               <input type="hidden" name="start_date" value="{{ request()->get('start_date') }}">
               <input type="hidden" name="end_date"  value="{{ request()->get('end_date') }}">

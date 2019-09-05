@@ -6,6 +6,8 @@
       </h1>
       
 @endsection
+@section('transaksi','active')
+@section('barangmasuk','active')
 @section('content')
 @include('layouts.notification')
     <!-- Main content -->
@@ -14,7 +16,7 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Barang Masuk</h3>
-              <a class="pull-right btn btn-default" href="{{ url('/barangmasuk/tambah_barangmasuk') }}">Tambahkan Data</a>
+              <a class="pull-right btn btn-default" href="{{ url('/barangmasuk/tambah') }}">Tambahkan Data</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -120,26 +122,30 @@
               <div class="modal-body">
               <form method="post" action="{{ route('update_brg_msk', $data['id_brg_masuk']) }}">
 				        <div class="form-group">
-					        <div class="form-line">
-					          <label for="name">Tanggal Masuk:</label>
-                    <input type="date" class="form-control" name="tgl_masuk" placeholder="tanggal masuk" value="value="{{ Carbon\Carbon::parse($data->tgl_masuk)->format('m/d/Y') }}"">
+                <div class="form-line">
+                  <label for="name">Nama Barang:</label>
+                    <select class="form-control" name="id_barang">
+                                
+                                @foreach($barang as $item)
+                                <option value="{{$item['id_barang']}}" @if ($item['nama_barang']==$data['barang']['nama_barang']) selected @endif>{{$item['nama_barang']}}</option>
+                                @endforeach
+                            </select>
 					        </div>
-                  <div class="form-line">
-					          <label for="name">Id Barang:</label>
-                    <input type="text" class="form-control" name="id_barang" placeholder="id barang" value="{{$data->id_barang}}">
-					        </div>
-                  <div class="form-line">
-					          <label for="name">Nama Barang:</label>
-                    <input type="text" class="form-control" name="nama_barang" placeholder="nama barang" value="{{$data->nama_barang}}">
-					        </div>
+                  
                   <div class="form-line">
 					          <label for="name">Jumlah Masuk:</label>
-                    <input type="text" class="form-control" name="jumlah_masuk" placeholder="jumlah masuk" value="{{$data->jumlah_masuk}}">
-					        </div>
+                    <input type="text" class="form-control" name="jml_masuk" placeholder="jumlah masuk" value="{{$data->jml_masuk}}">
+                  </div>
                   <div class="form-line">
-					          <label for="name">Ukuran Barang:</label>
-                    <input type="text" class="form-control" name="ukuran_barang" placeholder="ukuran barang" value="{{$data->ukuran_barang}}">
+                    <label for="name">Ukuran Barang:</label>
+                    <select class="form-control" name="id_ukuran">
+                                
+                                @foreach($ukuran as $item)
+                                <option value="{{$item['id_ukuran']}}" @if ($item['ukuran_barang']==$data['ukuran_barang']['ukuran_barang']) selected @endif>{{$item['ukuran_barang']}}</option>
+                                @endforeach
+                            </select>
 					        </div>
+                  
                 </div>
                 {{csrf_field()}}
 

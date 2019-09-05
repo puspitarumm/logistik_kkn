@@ -235,13 +235,19 @@
         </div>
           <div class="panel">
             <div id="chatBarangMasuk"></div>
-          </div> -->
+          </div> 
           <!-- /.box -->
 
         </div>
         <!-- /.col (RIGHT) -->
       </div>
       <!-- /.row -->
+      <div class="container">
+    {!! $chart->html() !!}
+</div>
+
+{!! Charts::scripts() !!}
+{!! $chart->script() !!}
       
       
             

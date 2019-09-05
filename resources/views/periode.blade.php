@@ -6,6 +6,8 @@
       </h1>
       
 @endsection
+@section('pengaturan','active')
+@section('periode','active')
 @section('content')
     <!-- Main content -->
       <div class="row">

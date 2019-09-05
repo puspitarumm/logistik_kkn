@@ -7,6 +7,8 @@
       
 @endsection
 @section('content')
+@section('transaksi','active')
+@section('barangkeluar','active')
 @include('layouts.notification')
     <!-- Main content -->
       <div class="row">
@@ -59,6 +61,8 @@
                             <div class="btn-group">
                               <a class="btn btn-danger" data-toggle="modal" data-target="#modal-danger{{$item['id_ambil']}}">
                                 <i class="glyphicon glyphicon-trash"></i></a>
+                                <a href="{{url('history/'.$item['mahasiswa']['niu'])}}" class="btn btn-info">
+                                <i class="fa fa-info"></i></a>
                             </div>
                         </td>
                       </tr>

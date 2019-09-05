@@ -7,6 +7,7 @@
       
 @endsection
 @section('content')
+@section('document','active')
 @include('layouts.notification')
     <!-- Main content -->
       <div class="row">
@@ -148,22 +149,42 @@
                 <div class="form-line">
 					          <label for="name">Nama Periode:</label>
                     <td><select class='form-control' name='nama_periode' required>
-                    <option value="">-- Select Periode --</option>
-                    <option value="Periode 1">Periode 1</option>
+                    
+                    <!-- <option value="">-- Select Periode --</option> -->
+                    <option {{old('nama_periode',$data['periode']['nama_periode'])=="Periode 1"? 'selected':''}} value="Periode 1">Periode 1</option>
+                    <option {{old('nama_periode',$data['periode']['nama_periode'])=="Periode 2"? 'selected':''}} value="Periode 2">Periode 2</option>
+                    <option {{old('nama_periode',$data['periode']['nama_periode'])=="Periode 3"? 'selected':''}} value="Periode 3">Periode 3</option>
+                    <option {{old('nama_periode',$data['periode']['nama_periode'])=="Periode 4"? 'selected':''}} value="Periode 4">Periode 4</option>
+                    <option {{old('nama_periode',$data['periode']['nama_periode'])=="Periode 5"? 'selected':''}} value="Periode 5">Periode 5</option>
+                    <!-- <option value="Periode 2">Periode 2</option>
                     <option value="Periode 2">Periode 2</option>
                     <option value="Periode 3">Periode 3</option>
                     <option value="Periode 4">Periode 4</option>
-                    <option value="Periode 5">Periode 5</option>
+                    <option value="Periode 5">Periode 5</option> -->
                     </select>
+                    <?php
+                    // $data=array('Periode 1'=>'','Periode 2'=>'','Periode 3'=>'');
+                    //Query year into $year
+                    $data['periode']['nama_periode']='selected';
+                    ?>
 					        <td>
                   </div>
+
                   <div class="form-line">
 					          <label for="tahun">Tahun</label>
-                    <td><select class='form-control' name='tahun' required>
+                    <td>
+                    <!-- <select class='form-control' name='tahun' required>
                     @foreach($tahun as $key=>$value) 
                       <option value="{{$value['tahun']}}">{{$value['tahun']}}</option>
                       @endforeach
-                    </select>
+                    </select> -->
+
+                    <select class="form-control" name="tahun">
+                                
+                                @foreach($tahun as $item)
+                                <option value="{{$item['tahun']}}" @if ($item['tahun']==$data['periode']['tahun']) selected @endif>{{$item['tahun']}}</option>
+                                @endforeach
+                            </select>
 					        <td>
                   </div>
                   <div class="form-line">

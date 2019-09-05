@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth'], function() {
 
 Route::get('detailsbarang','DetailsBarangController@index');
 Route::put('detailsbarang_create','DetailsBarangController@create')->name('create_details');
+Route::put('detailsbarang_update/{id_details}','DetailsBarangController@update')->name('update_details');
+Route::delete('detailsbarang_delete/{id_details}','DetailsBarangController@delete')->name('delete_details');
 
 Route::get('listbarang','BarangController@index');
 
@@ -134,8 +136,11 @@ Route::post('mahasiswa/import_excel', 'MahasiswaController@import_excel');
 Route::get('/mahasiswa', 'MahasiswaController@index');
 
 Route::post('/mahasiswa/import_excel', 'MahasiswaController@import_excel');
+Route::get('downloadExcel/{type}', 'MahasiswaController@downloadExcel');
+Route::get('/mahasiswa/export_excel', 'MahasiswaController@export_excel');
 
 Route::get('dashboard', 'DashboardController@index');
+// Route::get('dashboard', 'DashboardController@charts');
 
 Route::get('dokumen2', 'Document2Controller@uploadFile');
 Route::post('upload', 'Document2Controller@StoreUploadFile');
@@ -149,7 +154,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('barangmasuk')->group(function() {
     Route::get('tambah_barangmasuk','BarangMasukController@add_masuk');
     // Route::get('barangmasuk','BarangMasukController@index');
-    Route::post('save','BarangMasukController@tambah_save')->name('create_save');
+    Route::post('save','BarangMasukController@tambah_save');
+    Route::get('tambah','BarangMasukController@tambah_masuk');
+    Route::post('simpan','BarangMasukController@save');
 });
 
 Route::prefix('transaksi')->group(function() {
@@ -163,6 +170,7 @@ Route::get('barangkeluar', 'BarangKeluarController@index');
 // Route::put('barangkeluar_create','BarangKeluarController@create')->name('create_brg_keluar');
 Route::post('print','BarangKeluarController@printPdf');
 Route::post('unggah','BarangKeluarController@uploadBukti');
+Route::get('history/{niu}','BarangKeluarController@history');
 
 Route::put('barangkeluar_update/{id_brg_keluar}','BarangKeluarController@update')->name('update_brg_keluar');
 
@@ -173,7 +181,8 @@ Route::prefix('laporan')->group(function() {
     Route::get('lap_brg_masuk','LaporanController@lap_brg_masuk')->name('laporan.lap_brg_masuk');
     Route::get('lap_brg_keluar','LaporanController@lap_brg_keluar')->name('laporan.lap_brg_keluar');
     Route::get('stok_cetak_pdf','LaporanController@cetak_pdf_stok');
-    Route::get('brg_masuk_pdf','LaporanController@barangmasukPdf')->name('brg_masuk.pdf');
+    Route::post('brg_masukprint','LaporanController@barangmasukPdf');
+    Route::post('brg_keluarprint','LaporanController@barangkeluarPdf');
     Route::post('save','BarangKeluarController@save_create');
-    Route::post('print','LaporanController@printPdf');
+    // Route::post('print','LaporanController@printPdf');
 });

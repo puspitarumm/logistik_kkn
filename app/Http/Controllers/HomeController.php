@@ -11,6 +11,8 @@ use App\Models\BarangMasuk;
 use App\Models\BarangKeluar;
 use App\Models\Barang;
 use DB;
+use Charts;
+use App\Charts\SampleChart;
 
 class HomeController extends Controller
 {
@@ -30,7 +32,14 @@ class HomeController extends Controller
         $masuk = BarangMasuk::count();
         $keluar = BarangKeluar::count();
         // return $masuk;
-        return view('home',$data, ['masuk'=>$masuk,'keluar'=>$keluar]);
+        $barang_masuk = BarangMasuk::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"), date('Y'))->get();
+        $chart = Charts::database($barang_masuk, 'bar', 'highcharts')
+                    ->title('Barang Masuk')
+                    ->elementLabel('Total Barang Masuk')
+                    ->dimensions(500, 400)
+                    ->colors(['red', 'green', 'blue', 'yellow', 'orange', 'cyan', 'magenta'])
+                    ->groupByMonth(date('Y'), true);
+        return view('home',$data, ['masuk'=>$masuk,'keluar'=>$keluar,'chart' => $chart]);
     }
     public function chart()
     {
@@ -47,34 +56,17 @@ class HomeController extends Controller
             ]);
         return $stats;
     }
-    public static function getJumlahTamuJenisPerTahun(){
- 
- 
-    	$tahun_awal = date('Y') - 5;
-    	$tahun_akhir = date('Y');
- 
-    	$category = [];
- 
-    	$series[0]['name'] = 'dalam negeri';
-    	$series[1]['name'] = 'luar negeri';
-    	
- 
- 
-    	$j = 0;
-    	for ($i=$tahun_awal; $i <= $tahun_akhir ; $i++) { 
-    		$category[] = $i;
- 
-    		$series[0]['data'][] = Self::where('jenis_tamu', '=', 'dalam negeri')->where('tgl_kunjungan','like', $i.'%')->count();
-    		$series[1]['data'][] = Self::where('jenis_tamu', '=', 'luar negeri')->where('tgl_kunjungan','like', $i.'%')->count();
-    		
-    	}
- 
- 
-    	return ['category' => $category, 'series' => $series];
- 
- 
+    public function charts(){
+        $barang_masuk = BarangMasuk::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"), date('Y'))->get();
+        $chart = Charts::database($barang_masuk, 'bar', 'highcharts')
+                    ->title('Barang Masuk')
+                    ->elementLabel('Total Barang Masuk')
+                    ->dimensions(1000, 500)
+                    ->colors(['red', 'green', 'blue', 'yellow', 'orange', 'cyan', 'magenta'])
+                    ->groupByMonth(date('Y'), true);
+       return view('dashboard', ['chart' => $chart]);
     }
-
+    
 
     public function checksession()
     {

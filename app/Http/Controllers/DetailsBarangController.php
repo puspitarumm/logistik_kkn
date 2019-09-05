@@ -32,23 +32,21 @@ class DetailsBarangController extends Controller
     	    return redirect('detailsbarang');
     }
             
-    
-            
-    
+
         public function update(Request $request, $id_details){
             //cek isi customer id
             // dd($customer_id);
             $c = DetailsBarang::where('id_details',$id_details)->first();
             $c->id_barang = $request->id_barang;
             $c->id_ukuran = $request->id_ukuran;
-            $c->dokumen = $request->dokumen;
+            $c->stok = $request->stok;
             $c->update();
-            return redirect('dokumen');
+            return redirect('detailsbarang');
         }
     
-        public function delete($id_dokumen){
-            Document::where('id_dokumen',$id_dokumen)->delete();
-            return redirect('dokumen');
+        public function delete($id_details){
+            DetailsBarang::where('id_details',$id_details)->delete();
+            return redirect('detailsbarang');
         }
     
 }

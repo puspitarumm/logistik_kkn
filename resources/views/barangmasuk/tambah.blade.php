@@ -6,10 +6,10 @@
       </h1>
       
 @endsection
+@section('content')
 @section('transaksi','active')
 @section('barangmasuk','active')
-@section('content')
-<!-- @include('layouts.notification') -->
+@include('layouts.notification')
   
   <!-- Main content -->
       <div class="row">
@@ -22,13 +22,14 @@
             <div class="box-body">
                 <div class="box box-primary">
                   <!-- data penanggung jawab -->
-                  <form action="{{url('barangmasuk/save')}}" method="POST">
+                  <form action="{{url('barangmasuk/simpan')}}" method="POST">
                     @csrf
+                    
+                    <!-- data penanggung jawab -->
+                    <!-- form start -->
+                    <!-- data penanggung jawab -->
                     <div class="box-body">
-                        <!-- <div class="form-group">
-                          <h2>Pengambilan Barang</h4>
-                            <hr>
-                        </div> -->
+                        
                         @foreach ($barang as $barang)
                              <!--Kaos-->
                         <div class="box box-default collapsed-box">

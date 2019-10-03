@@ -1,11 +1,5 @@
 @extends('layouts.master')
-@section('content-header')
-      <h1>
-        Dashboard
-        <small>Control Panel</small>
-      </h1>
-      
-@endsection
+
 @section('transaksi','active')
 @section('barangmasuk','active')
 @section('content')
@@ -25,6 +19,7 @@
               <thead>
                 <tr>
                   <th>No</th>
+                  <th>Tanggal Masuk</th>
                   <th>Nama Barang</th>
                   <th>Ukuran Barang</th>
                   <th>Jumlah Masuk</th>
@@ -37,6 +32,7 @@
                 @foreach($barang_masuk as $data)
                 <tr>
                   <td>{{$no++}}</td>
+                  <td>{{ $data->created_at->format('d-m-y H:i:s') }}</td>
                   <td>{{$data['barang']['nama_barang']}}</td>
                   <td>{{$data['ukuran_barang']['ukuran_barang']}}</td>
                   <td>{{$data->jml_masuk}}</td>
@@ -117,14 +113,14 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit</h4>
+                <h4 class="modal-title">Ubah Barang Masuk</h4>
               </div>
               <div class="modal-body">
               <form method="post" action="{{ route('update_brg_msk', $data['id_brg_masuk']) }}">
 				        <div class="form-group">
                 <div class="form-line">
                   <label for="name">Nama Barang:</label>
-                    <select class="form-control" name="id_barang">
+                    <select class="form-control" name="id_barang" required>
                                 
                                 @foreach($barang as $item)
                                 <option value="{{$item['id_barang']}}" @if ($item['nama_barang']==$data['barang']['nama_barang']) selected @endif>{{$item['nama_barang']}}</option>
@@ -134,11 +130,12 @@
                   
                   <div class="form-line">
 					          <label for="name">Jumlah Masuk:</label>
-                    <input type="text" class="form-control" name="jml_masuk" placeholder="jumlah masuk" value="{{$data->jml_masuk}}">
+                    <input type="text" class="form-control" name="jml_masuk" placeholder="jumlah masuk" value="{{$data->jml_masuk}}" required>
+                    @if ($errors->has('jml_masuk')){!! '<span class="text-red">'.$errors->first('jml_masuk').'</span>' !!} @endif
                   </div>
                   <div class="form-line">
                     <label for="name">Ukuran Barang:</label>
-                    <select class="form-control" name="id_ukuran">
+                    <select class="form-control" name="id_ukuran" required>
                                 
                                 @foreach($ukuran as $item)
                                 <option value="{{$item['id_ukuran']}}" @if ($item['ukuran_barang']==$data['ukuran_barang']['ukuran_barang']) selected @endif>{{$item['ukuran_barang']}}</option>
@@ -152,8 +149,8 @@
                  
               <div class="modal-footer">
                   <input type="hidden" name="_method" value="PUT">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
               </div>
               </form>
             </div> 

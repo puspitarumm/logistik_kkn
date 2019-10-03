@@ -22,6 +22,8 @@ class BarangKeluarController extends Controller
     }
         public function index(){
             $data['ambil']=BarangAmbil::with('mahasiswa')->get();
+            $data['barang'] = Barang::all();
+            $data['ukuran'] = UkuranBarang::all();
             // return $data['ambil'];
             return view('transaksi.barangkeluar', $data);
         }
@@ -38,17 +40,16 @@ class BarangKeluarController extends Controller
             $c->save();
             return redirect('barangmasuk');
         }
-        public function update(Request $request, $id_brg_masuk){
+        public function update(Request $request, $id_brg_keluar){
             //cek isi customer id
             // dd($customer_id);
-            $c = BarangMasuk::where('id_brg_masuk',$id_brg_masuk)->first();
-            $c->tgl_masuk = $request->tgl_masuk;
+            $c = BarangKeluar::where('id_brg_keluar',$id_brg_keluar)->first();
             $c->id_barang = $request->id_barang;
             $c->nama_barang = $request->nama_barang;
-            $c->jumlah_masuk = $request->jumlah_masuk;
             $c->ukuran_barang = $request->ukuran_barang;
-            $c->update();
-            return redirect('barangmasuk');
+            $c->jml_keluar = $request->jml_keluar;
+                        $c->update();
+            return redirect('transaksi.history_keluar');
         }
     
         public function delete($id_brg_masuk){
@@ -83,7 +84,7 @@ class BarangKeluarController extends Controller
             try{
                 $id_barang_ambil=BarangAmbil::where('niu',$request['niu'])->get();
                 // return $id_barang_ambil;
-                if(!$id_barang_ambil){
+                if(count($id_barang_ambil)==0){
                     $c = new BarangAmbil();
                     $c->niu = $request->niu;
                     $c->kode_lokasi = $request->lokasi;
@@ -152,7 +153,9 @@ class BarangKeluarController extends Controller
         }
 
         public function printPdf(Request $request){
-            $data['mahasiswa']=Mahasiswa::where('kode_lokasi',$request['lokasi'])->where('id_periode',$request['periode'])->where('id_ukuran',$request['ukuran_barang'])->with('periode','ukuran_barang')->get();
+            // return $request;
+            $data['mahasiswa']=Mahasiswa::where('kode_lokasi',$request['lokasi'])->where('id_periode',$request['periode'])->with('periode','ukuran_barang')->get();
+            // return $data;
             $pdf = PDF::loadView('transaksi.mahasiswa_pdf', $data);
             return $pdf->download('Bukti Pengambilan.pdf');
         }
@@ -214,6 +217,9 @@ class BarangKeluarController extends Controller
         public function history($niu){
             $data['mahasiswa']=BarangAmbil::where('niu',$niu)->with('mahasiswa')->get();
             $data['history']=BarangKeluar::where('id_barang_ambil',$data['mahasiswa'][0]['id_ambil'])->with('barang','ukuran_barang')->get();
+            $data['barang']=Barang::All();
+            $data['ukuran']=UkuranBarang::All();
+            // return $data['ukuran'];
             // return $data;
             return view('transaksi.history_keluar',$data);
         }

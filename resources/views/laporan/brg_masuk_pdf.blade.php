@@ -10,8 +10,8 @@
 			font-size: 9pt;
 		}
 	</style>
-	<center><h4>Laporan Stok Barang</h4></center>
-
+	<center><h4>Laporan Barang Masuk </h4></center>
+		<h5>tanggal : {{$start_date}} sampai {{$end_date}} </h5>
 	
  
 	<table class='table table-bordered'>
@@ -25,7 +25,7 @@
 		</thead>
 		<tbody>
 			@php $i=1 @endphp
-			@foreach($barang_masuk as $data)
+			@foreach($data as $data)
 			<tr>
 				<td>{{ $i++ }}</td>
 				<td>{{$data['barang']['nama_barang']}}</td>

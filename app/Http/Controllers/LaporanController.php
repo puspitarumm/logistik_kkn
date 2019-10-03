@@ -78,9 +78,9 @@ class LaporanController extends Controller
             $end_date = Carbon::parse($request->end_date)->format('Y-m-d') . ' 23:59:59';
 
             //DITAMBAHKAN WHEREBETWEEN CONDITION UNTUK MENGAMBIL DATA DENGAN RANGE
-            $data['barang_masuk'] = BarangMasuk::whereBetween('created_at', [$start_date, $end_date])->get();
+            $data = BarangMasuk::whereBetween('created_at', [$start_date, $end_date])->get();
             //    return $data['barang_masuk'];
-           $pdf = PDF::loadView('laporan.brg_masuk_pdf', $data);
+           $pdf = PDF::loadView('laporan.brg_masuk_pdf',array('data'=>$data,'start_date'=>$start_date,'end_date'=>$end_date));
            return $pdf->stream();
         }
 
@@ -115,9 +115,9 @@ class LaporanController extends Controller
             $end_date = Carbon::parse($request->end_date)->format('Y-m-d') . ' 23:59:59';
 
             //DITAMBAHKAN WHEREBETWEEN CONDITION UNTUK MENGAMBIL DATA DENGAN RANGE
-            $data['barang_keluar'] = BarangKeluar::whereBetween('created_at', [$start_date, $end_date])->get();
+            $data= BarangKeluar::whereBetween('created_at', [$start_date, $end_date])->get();
             //    return $data['barang_masuk'];
-           $pdf = PDF::loadView('laporan.brg_keluar_pdf', $data);
+           $pdf = PDF::loadView('laporan.brg_keluar_pdf', array('data'=>$data,'start_date'=>$start_date,'end_date'=>$end_date));
            return $pdf->stream();
         }
 }

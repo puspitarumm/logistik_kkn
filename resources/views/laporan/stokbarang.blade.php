@@ -16,7 +16,7 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Data Barang</h3>
-              <a href="/laporan/stok_cetak_pdf" target="_blank" class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</a>
+              <a href="/laporan/stok_cetak_pdf" target="_blank" class="btn btn-default" id="print"><i class="fa fa-print"></i> Unduh PDF</a>
                 
               <!-- <a class='pull-right btn btn-danger' href="">Tambahkan Data</a> -->
             </div>

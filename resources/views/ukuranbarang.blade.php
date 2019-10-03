@@ -8,6 +8,7 @@
 @section('data_master','active')
 @section('data_master2','active')
 @section('content')
+@include('layouts.notification')
     <!-- Main content -->
       <div class="row">
         <div class="col-xs-12">
@@ -59,14 +60,14 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Barang</h4>
+                <h4 class="modal-title">Tambah Ukuran Barang</h4>
               </div>
               <div class="modal-body">
               <form method="POST" action="{{Route('create_uk_barang')}}">
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Ukuran Barang:</label>
-					          <input type="text" class="form-control" name="ukuran_barang" placeholder="ukuran barang" />
+					          <input type="text" class="form-control" name="ukuran_barang" placeholder="ukuran barang" required/>
 					        </div>
                 </div>
                 {{csrf_field()}}
@@ -75,8 +76,8 @@
                 </div>
               <div class="modal-footer">
                   <input type="hidden" name="_method" value="PUT">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
               </div>
             </div>
             </form>
@@ -95,14 +96,14 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit</h4>
+                <h4 class="modal-title">Ubah Ukuran Barang</h4>
               </div>
               <div class="modal-body">
               <form method="post" action="{{ route('update_ukuran', $data['id_ukuran']) }}">
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Ukuran Barang:</label>
-                    <input type="text" class="form-control" name="ukuran_barang" placeholder="ukuran barang" value="{{$data->ukuran_barang}}">
+                    <input type="text" class="form-control" name="ukuran_barang" placeholder="ukuran barang" value="{{$data->ukuran_barang}}" required>
 					        </div>
                 </div>
                 {{csrf_field()}}
@@ -110,8 +111,8 @@
                  
               <div class="modal-footer">
                   <input type="hidden" name="_method" value="PUT">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
               </div>
               </form>
             </div> 

@@ -22,6 +22,7 @@
 				<th>NIU</th>
 				<th>Nama</th>
 				<th>Fakultas</th>
+				<th>Kode Lokasi</th>
 				<th>Lokasi</th>
 				<th>Ukuran Kaos</th>
 				<th>TTD</th>
@@ -35,6 +36,7 @@
 				<td>{{$m->niu}}</td>
 				<td>{{$m->nama}}</td>
 				<td>{{$m->fakultas}}</td>
+				<td>{{$m->kode_lokasi}}</td>
 				<td>{{$m->lokasi}}</td>
 				<td>{{$m['ukuran_barang']['ukuran_barang']}}</td>
 				<td></td>

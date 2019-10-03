@@ -92,7 +92,7 @@
               {{csrf_field()}}
               <input type="hidden" name="start_date" value="{{ request()->get('start_date') }}">
               <input type="hidden" name="end_date"  value="{{ request()->get('end_date') }}">
-              <button type="submit" class="btn btn-default" id="print"><i class="fa fa-print"></i>Print</button>
+              <button type="submit" class="btn btn-default" id="print"><i class="fa fa-print"></i>Unduh PDF</button>
               <!-- <a href="/laporan/print" target="_blank" class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</a> -->
               <!-- <a class='pull-right btn btn-danger' href="">Tambahkan Data</a> -->
             </form>

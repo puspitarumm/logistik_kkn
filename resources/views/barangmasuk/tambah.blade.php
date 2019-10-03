@@ -1,11 +1,4 @@
 @extends('layouts.master')
-@section('content-header')
-      <h1>
-        Dashboard
-        <small>Control Panel</small>
-      </h1>
-      
-@endsection
 @section('content')
 @section('transaksi','active')
 @section('barangmasuk','active')
@@ -16,7 +9,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Pengambilan Barang</h3>
+              <h3 class="box-title">Tambah Barang Masuk</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

@@ -1,11 +1,5 @@
 @extends('layouts.master')
-@section('content-header')
-      <h1>
-        Dashboard
-        <small>Control Panel</small>
-      </h1>
-      
-@endsection
+
 @section('transaksi','active')
 @section('barangmasuk','active')
 @section('content')

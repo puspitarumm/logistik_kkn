@@ -11,6 +11,7 @@
 		}
 	</style>
 	<center><h4>Laporan Barang Keluar</h4></center>
+	<h5>Tanggal : {{$start_date}} sampai {{$end_date}}</h5>
 
 	
  
@@ -25,7 +26,7 @@
 		</thead>
 		<tbody>
 			@php $i=1 @endphp
-			@foreach($barang_keluar as $data)
+			@foreach($data as $data)
 			<tr>
 				<td>{{ $i++ }}</td>
 				<td>{{$data['barang']['nama_barang']}}</td>

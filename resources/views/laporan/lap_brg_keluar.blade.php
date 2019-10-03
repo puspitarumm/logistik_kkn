@@ -1,11 +1,4 @@
 @extends('layouts.master')
-@section('content-header')
-      <h1>
-        Dashboard
-        <small>Control Panel</small>
-      </h1>
-      
-@endsection
 @section('laporan','active')
 @section('barang_keluar','active')
 @section('content')
@@ -93,13 +86,13 @@
             {{csrf_field()}}
             <div class="row no-print">
                 <div class="col-xs-12">
-                    <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+                    <!-- <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
                         <i class="fa fa-download"></i> Generate PDF
-                    </button>
+                    </button> -->
              
               <input type="hidden" name="start_date" value="{{ request()->get('start_date') }}">
               <input type="hidden" name="end_date"  value="{{ request()->get('end_date') }}">
-              <button type="submit" class="btn btn-default" id="print"><i class="fa fa-print"></i>Print</button>
+              <button type="submit" class="btn btn-default" id="print"><i class="fa fa-print"></i>Unduh PDF</button>
               <!-- <a href="/laporan/print" target="_blank" class="btn btn-default" id="print"><i class="fa fa-print"></i> Print</a> -->
               <!-- <a class='pull-right btn btn-danger' href="">Tambahkan Data</a> -->
             </form>

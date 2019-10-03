@@ -1,13 +1,14 @@
 @extends('layouts.master')
-@section('content-header')
-      <h1>
-        Dashboard
-        <small>Control Panel</small>
-      </h1>
-      
-@endsection
 @section('users','active')
 @section('content')
+@include('layouts.notification')
+@if(count($errors) > 0)
+				      <div class="alert alert-danger">
+					    @foreach ($errors->all() as $error)
+					    {{ $error }} <br/>
+					    @endforeach
+				    </div>
+	        	@endif
     <!-- Main content -->
       <div class="row">
         <div class="col-xs-12">
@@ -61,26 +62,28 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Users</h4>
+                <h4 class="modal-title">Tambah Users</h4>
               </div>
               <div class="modal-body">
+              
               <form method="POST" action="{{Route('create_adm')}}">
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">nama:</label>
-                    <input type="text" class="form-control" name="name" placeholder="nama">
+                    <input type="text" class="form-control" name="name" placeholder="nama" required>
 					        </div>
                   <div class="form-line">
 					          <label for="name"> username:</label>
-					          <input type="text" class="form-control" name="username" placeholder="username">
+					          <input type="text" class="form-control" name="username" placeholder="username" required>
+                    <p class="text-danger">{{ $errors->first('file') }}</p>
 					        </div>
                   <div class="form-line">
 					          <label for="name">email:</label>
-                    <input type="text" class="form-control" name="email" placeholder="email">
+                    <input type="text" class="form-control" name="email" placeholder="email" required>
 					        </div>
                   <div class="form-line">
 					          <label for="name">password:</label>
-                    <input type="password" class="form-control" name="password" placeholder="password">
+                    <input type="password" class="form-control" name="password" placeholder="password" required>
 					        </div>  
                 </div>
                 {{csrf_field()}}
@@ -108,26 +111,26 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit</h4>
+                <h4 class="modal-title">Ubah User</h4>
               </div>
               <div class="modal-body">
-              <form method="post" action="{{ route('update_adm', $data['id']) }}">
+              <form method="post" action="{{ route('update_adm', $data['id']) }}" required>
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Nama:</label>
-                    <input type="text" class="form-control" name="name" placeholder="nama" value="{{$data->name}}">
+                    <input type="text" class="form-control" name="name" placeholder="nama" value="{{$data->name}}" required>
 					        </div>
                   <div class="form-line">
 					          <label for="name">Username:</label>
-                    <input type="text" class="form-control" name="username" placeholder="nama periode" value="{{$data->username}}">
+                    <input type="text" class="form-control" name="username" placeholder="nama periode" value="{{$data->username}}" required>
 					        </div> 
                   <div class="form-line">
 					          <label for="name">Email:</label>
-                    <input type="text" class="form-control" name="email" placeholder="email" value="{{$data->email}}">
+                    <input type="text" class="form-control" name="email" placeholder="email" value="{{$data->email}}" required>
 					        </div>
                   <div class="form-line">
 					          <label for="name">Password:</label>
-                    <input type="password" class="form-control" name="password" placeholder="password">
+                    <input type="password" class="form-control" name="password" placeholder="password" required>
 					        </div>
                 </div>
                 {{csrf_field()}}

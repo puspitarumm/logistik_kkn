@@ -139,6 +139,20 @@ Route::post('/mahasiswa/import_excel', 'MahasiswaController@import_excel');
 Route::get('downloadExcel/{type}', 'MahasiswaController@downloadExcel');
 Route::get('/mahasiswa/export_excel', 'MahasiswaController@export_excel');
 
+Route::prefix('mahasiswa')->group(function() {
+    Route::get('create','CobaMahasiswaController@create')->name('mahasiswa/tambah_mahasiswa');
+    Route::get('datamahasiswa','CobaMahasiswaController@index')->name('mahasiswa/datamahasiswa');
+    Route::post('store','CobaMahasiswaController@store')->name('mahasiswa.store');
+    Route::get('edit/{niu}','CobaMahasiswaController@edit')->name('mahasiswa.edit');
+    Route::post('update','CobaMahasiswaController@update')->name('mahasiswa.update');
+    Route::delete('delete/{niu}', 'CobaMahasiswaController@destroy')->name('delete_mhs');
+    Route::delete('/deleteAll', 'CobaMahasiswaController@deleteAll')->name('delete_niu');
+    Route::get('ajaxdata/massremove', 'CobaMahasiswaController@massremove')->name('ajaxdata.massremove');
+    Route::delete('/deleteall','CobaMahasiswaController@deleteall')->name('deleteall');
+
+    
+});
+Route::post('/mahasiswa/import_exl', 'CobaMahasiswaController@import_excel');
 Route::get('dashboard', 'DashboardController@index');
 // Route::get('dashboard', 'DashboardController@charts');
 
@@ -171,6 +185,8 @@ Route::get('barangkeluar', 'BarangKeluarController@index');
 Route::post('print','BarangKeluarController@printPdf');
 Route::post('unggah','BarangKeluarController@uploadBukti');
 Route::get('history/{niu}','BarangKeluarController@history');
+Route::put('update_keluar','BarangKeluarController@update')->name('update_brg_keluar');
+Route::delete('delete/{id_brg_keluar}','BarangKeluarController@delete')->name('delete_brg_keluar');
 
 Route::put('barangkeluar_update/{id_brg_keluar}','BarangKeluarController@update')->name('update_brg_keluar');
 
@@ -186,3 +202,15 @@ Route::prefix('laporan')->group(function() {
     Route::post('save','BarangKeluarController@save_create');
     // Route::post('print','LaporanController@printPdf');
 });
+
+Route::prefix('lokasi')->group(function(){
+    Route::get('lokasi','LokasiController@index');
+    Route::put('lokasi_create','LokasiController@create')->name('create_lokasi');
+    Route::put('lokasi_update/{id_lokasi}','LokasiController@update')->name('update_lokasi');
+    Route::delete('lokasi_delete/{id_lokasi}','LokasiController@delete')->name('delete_lokasi');
+
+});
+
+Route::delete('deleteAll', 'MahasiswaController@deleteAll');
+
+

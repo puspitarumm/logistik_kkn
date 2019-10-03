@@ -1,11 +1,4 @@
 @extends('layouts.master')
-@section('content-header')
-      <h1>
-        Dashboard
-        <small>Control Panel</small>
-      </h1>
-      
-@endsection
 @section('content')
 @section('document','active')
 @include('layouts.notification')
@@ -43,13 +36,14 @@
                   <td>{{$data['periode']['tahun']}}</td>
                   <!-- <td><a target='_BLANK' href="{{ Storage::url($data->dokumen) }}">{{$data['dokumen']}}</a></td> -->
                  <td><a target='_BLANK' href="{{ url('/data_file/'.$data->dokumen) }}">{{$data['dokumen']}}</a></td>
-                  </td>
+                  
+                  <!-- <img src="{{ URL::to('/') }}/images/{{ $data->dokumen }}"/> -->
 
                   
                   <td>
-                  <a href="{{ Storage::url($data->dokumen) }}" title="View file {{ $data->nama_dokumen }}">
+                  <!-- <a href="{{ Storage::url($data->dokumen) }}" title="View file {{ $data->nama_dokumen }}">
                                                 <i class="fa fa-eye"></i>
-                                            </a>
+                                            </a> -->
                     <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->id_dokumen}}">
                     <i class="glyphicon glyphicon-edit"></i></button>
                     <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger{{$data->id_dokumen}}">
@@ -71,8 +65,9 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Dokument</h4>
+                <h4 class="modal-title">Tambah Dokumen</h4>
               </div>
+              
               @if(count($errors) > 0)
 				      <div class="alert alert-danger">
 					    @foreach ($errors->all() as $error)
@@ -83,11 +78,16 @@
               <div class="modal-body">
               <form method="POST" action="{{url('dokumen/upload')}}" enctype="multipart/form-data">
               {{ csrf_field() }}
+              <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <i class="icon fa fa-warning"></i> Perhatian! &nbsp;
+                    Format file dokumen hanya bertipe (jpg, jpeg, pdf, png)
+                </div>
           
                 <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Nama Dokumen:</label>
-					          <input type="text" class="form-control" name="nama_dokumen" placeholder="nama dokumen">
+					          <input type="text" class="form-control" name="nama_dokumen" placeholder="nama dokumen" required>
 					        </div>
                   <div class="form-line">
 					          <label for="name">Nama Periode:</label>
@@ -112,12 +112,12 @@
                   </div>
                   <div class="form-line">
 					          <label for="name">Dokumen:</label>
-                    <input type="file" class="form-control" name="dokumen">        
+                    <input type="file" class="form-control" name="dokumen" required>        
                 </div>
                 </div>
               <div class="modal-footer">
                 <input type="hidden" name="_method" value="POST">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
                 <input type="submit" value="Upload" class="btn btn-primary">
               </div>
             </div>
@@ -136,14 +136,29 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit</h4>
+                <h4 class="modal-title">Ubah Dokumen</h4>
               </div>
               <div class="modal-body">
-              <form method="post" action="{{ route('update_doc', $data['id_dokumen']) }}">
+              @if(count($errors) > 0)
+				      <div class="alert alert-danger">
+					    @foreach ($errors->all() as $error)
+					    {{ $error }} <br/>
+					    @endforeach
+				    </div>
+            @endif
+            <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <i class="icon fa fa-warning"></i> Perhatian! &nbsp;
+                    Format file dokumen hanya bertipe (jpg, jpeg, pdf, png)
+                </div>
+              <form method="post" action="{{ route('update_doc', $data['id_dokumen']) }}" enctype="multipart/form-data">
+                @csrf
+                @method('PATCH')
+              <!-- <form method="post" action="{{ route('update_doc', $data['id_dokumen']) }}"> -->
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Nama Dokumen:</label>
-                    <input type="text" class="form-control" name="nama_dokumen" placeholder="nama dokumen" value="{{$data->nama_dokumen}}">
+                    <input type="text" class="form-control" name="nama_dokumen" placeholder="nama dokumen" value="{{$data->nama_dokumen}}" required>
 					        </div>
 
                 <div class="form-line">
@@ -179,7 +194,7 @@
                       @endforeach
                     </select> -->
 
-                    <select class="form-control" name="tahun">
+                    <select class="form-control" name="tahun" required>
                                 
                                 @foreach($tahun as $item)
                                 <option value="{{$item['tahun']}}" @if ($item['tahun']==$data['periode']['tahun']) selected @endif>{{$item['tahun']}}</option>
@@ -190,9 +205,10 @@
                   <div class="form-line">
 					          <label for="name">Dokumen:</label>
                     <!-- <input type="file" class="form-control" name="dokumen" value="{{$data->dokumen}}">         -->
-                    <input type="file" name="dokumen" />
-              <img src="{{ url('/data_file/'.$data->dokumen) }}" class="img-thumbnail" width="100" />
-                        <input type="hidden" name="hidden_dokumen" value="{{ $data->dokumen }}" />
+                    <input type="file" name="dokumen"/>
+              <img src="{{ URL::to('/') }}/data_file/{{ $data->dokumen }}" class="img-thumbnail" width="100" />
+                        <input type="hidden" name="hidden_image" value="{{ $data->dokumen }}" />
+       </div>
                 </div>
                 
 </div>
@@ -202,8 +218,8 @@
                  
               <div class="modal-footer">
                   <input type="hidden" name="_method" value="PUT">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
               </div>
               </form>
             </div> 

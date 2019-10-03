@@ -2,7 +2,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
-      <div class="user-panel">
+      <!-- <div class="user-panel">
         <div class="pull-left image">
           <img src="{{url('./images/girl.png')}}" class="img-circle" alt="User Image">
         </div>
@@ -10,7 +10,7 @@
           <p>Arum Puspitasari</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div> -->
-      </div>
+      <!-- </div> -->
       <!-- search form
       <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
@@ -25,8 +25,8 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MENU PENGGUNA</li>
-        <li class="@yield('dashboard')">
-          <a href="{{ url('/dashboard') }}">
+        <li class="@yield('home')">
+          <a href="{{ url('/home') }}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
@@ -45,6 +45,7 @@
             <li class="@yield('data_master3')"><a href="{{ url('/detailsbarang') }}"><i class="fa fa-circle-o"></i> Data Barang</a></li>
             <!-- <li><a href="{{ url('/satuan') }}"><i class="fa fa-circle-o"></i> Satuan</a></li> -->
             <li class="@yield('data_master4')"><a href="{{ url('/mahasiswa') }}"><i class="fa fa-circle-o"></i> Data Mahasiswa</a></li>
+            <!-- <li class="@yield('data_master5')"><a href="{{ url('/mahasiswa/datamahasiswa') }}"><i class="fa fa-circle-o"></i> Data Mahasiswa coba</a></li> -->
           </ul>
         </li>
         <li class="treeview @yield('transaksi')">
@@ -91,7 +92,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="@yield('periode')"><a href="{{ url('/periode') }}"><i class="fa fa-circle-o"></i> Periode KKN</a></li>
+            <li class="@yield('periode')"><a href="{{ url('/periode') }}"><i class="fa fa-circle-o"></i>Periode KKN</a></li>
+            <!-- <li class="@yield('lokasi')"><a href="{{ url('lokasi/lokasi') }}"><i class="fa fa-circle-o"></i>Lokasi</a></li> -->
           </ul>
         </li>
         

@@ -14,37 +14,63 @@ class BarangController extends Controller
     {
         $this->middleware('auth');
     }
-   
     public function index()
     {
         $data['barang'] = Barang::orderBy('id_barang','desc')->get();
-       
-        // return $data;
-        // $data['barang_x'] F= Barang::where('id_barang',10)->first();
-        // $data['ukuran_barang2'] = UkuranBarang::pluck('ukuran_barang', 'id_ukuran');
-        // $data['selectedID'] = 2;
         return view('listbarang',$data);
     }
 
     public function create(Request $request){
-      // return $request;
-      $c = new Barang();
-      $c->id_barang = $request->id_barang;
-      $c->nama_barang = $request->nama_barang;
-      $c->save();
-      return redirect('listbarang');
-    }
+      $this->validate($request,[
+        'nama_barang' => 'required'
+      ],
+      [
+        'nama_barang.required' => 'nama tidak boleh kosong'
+      ]
+      );
+      $ceknama = Barang::where(['nama_barang'=>$request->nama_barang])->get();
+      if(count($ceknama)==0){
+        $c = new Barang();
+        $c->id_barang = $request->id_barang;
+        $c->nama_barang = $request->nama_barang;
+        $c->save();
+        // $ceknama=Barang::where('nama_barang',$request['nama_barang'])->get();
+        // return redirect('listbarang');
+          session([
+              'success' => ['Barang berhasil ditambahkan'],
+          ]);
+          return back();
+      }else{
+        session([
+          'error' => [$ceknama[0]['nama_barang'].' sudah ada'],
+      ]);
+      return back();
+      }
+  }
 
     public function update(Request $request,$id_barang){
+      $ceknama = Barang::where(['nama_barang'=>$request->nama_barang])->get();
+      if(count($ceknama)==0){
       $c = Barang::where('id_barang',$id_barang)->first();
       $c->nama_barang = $request->nama_barang;
       $c->update();
-      return redirect('listbarang');
-
+      session([
+        'success' => ['Barang berhasil diperbarui'],
+    ]);
+    return back();
+    }else{
+      session([
+        'error' => [$ceknama[0]['nama_barang'].' sudah ada'],
+    ]);
+    return back();
+    }
     }
 
     public function delete($id_barang){
-    	Barang::where('id_barang',$id_barang)->delete();
+      Barang::where('id_barang',$id_barang)->delete();
+      session([
+        'success' => ['Barang berhasil dihapus'],
+      ]);
         return redirect('listbarang');
     }
 }

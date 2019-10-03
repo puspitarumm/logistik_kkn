@@ -9,13 +9,13 @@
 @section('data_master','active')
 @section('data_master3','active')
 @section('content')
-
+@include('layouts.notification')
 <!-- Main content -->
 <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">List Barang</h3>
+              <h3 class="box-title">Details Barang</h3>
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
               Tambahkan Data</button>
               <!-- <a class='pull-right btn btn-danger' href="">Tambahkan Data</a> -->
@@ -27,7 +27,7 @@
                 <tr>
                   <th>No</th>
                   <th>Nama Barang</th>
-                  <th>Ukuran Barang</th>
+                  <!-- <th>Ukuran Barang</th> -->
                   <th>Stok</th>
                   <th>Aksi</th>
                 </tr>
@@ -38,8 +38,13 @@
                     @foreach($detailsbarang as $data)
                 <tr>
                   <td>{{$no++}}</td>
-                  <td>{{$data['barang']['nama_barang']}}</td>
-                  <td>{{$data['ukuran_barang']['ukuran_barang']}}</td>
+                  <td>@if ($data['barang']['nama_barang']=='Kaos')
+                  {{$data['barang']['nama_barang']}} {{$data['ukuran_barang']['ukuran_barang']}}
+                  @else
+                  {{$data['barang']['nama_barang']}}
+                  @endif
+                    </td>
+                  <!-- <td>{{$data['ukuran_barang']['ukuran_barang']}}</td> -->
                   <td>{{$data['stok']}}</td>
                   <td>
                   <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->id_details}}">
@@ -65,7 +70,7 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Barang</h4>
+                <h4 class="modal-title">Tambah Details Barang</h4>
               </div>
               <div class="modal-body">
               <form method="POST" action="{{Route('create_details')}}">
@@ -94,8 +99,8 @@
 
                   <div class="form-line">
 					          <label for="name">Stok:</label>
-                    <input type="text" class="form-control" name="stok" placeholder="stok">
-
+                    <input type="text" class="form-control" name="stok" placeholder="stok" required>
+                    @if ($errors->has('stok')){!! '<span class="text-red">'.$errors->first('stok').'</span>' !!} @endif
 					        </div>
 
                 </div>
@@ -105,8 +110,8 @@
                 </div>
               <div class="modal-footer">
                   <input type="hidden" name="_method" value="PUT">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
               </div>
             </div>
             </form>
@@ -125,7 +130,7 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit</h4>
+                <h4 class="modal-title">Ubah Details Barang</h4>
               </div>
               <div class="modal-body">
               <form method="post" action="{{ route('update_details', $data['id_details']) }}">
@@ -150,7 +155,8 @@
 					        </div>
                   <div class="form-line">
 					          <label for="name">Stok:</label>
-                    <input type="text" class="form-control" name="stok" placeholder="stok" value="{{$data->stok}}">
+                    <input type="text" class="form-control" name="stok" placeholder="stok" value="{{$data->stok}}" required>
+                    @if ($errors->has('stok')){!! '<span class="text-red">'.$errors->first('stok').'</span>' !!} @endif
 					        </div>
                   
                 </div>
@@ -159,8 +165,8 @@
                  
               <div class="modal-footer">
                   <input type="hidden" name="_method" value="PUT">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
               </div>
               </form>
             </div> 

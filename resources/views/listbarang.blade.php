@@ -9,6 +9,7 @@
 @section('data_master','active')
 @section('data_master1','active')
 @section('content')
+@include('layouts.notification')
     <!-- Main content -->
       <div class="row">
         <div class="col-xs-12">
@@ -60,14 +61,14 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Barang</h4>
+                <h4 class="modal-title">Tambah Barang</h4>
               </div>
               <div class="modal-body">
               <form method="POST" action="{{Route('create_brg')}}">
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Nama Barang:</label>
-					          <input type="text" class="form-control" name="nama_barang" placeholder="nama barang" />
+					          <input type="text" class="form-control" name="nama_barang" placeholder="nama barang"  required />
 					        </div>
                 </div>
                 {{csrf_field()}}
@@ -76,16 +77,14 @@
                 </div>
               <div class="modal-footer">
                   <input type="hidden" name="_method" value="PUT">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
               </div>
             </div>
             </form>
           </div> 
         </div>
-      </div>
-      </div>
-      </div>
+   
 
 
            @foreach($barang as $data)
@@ -96,14 +95,14 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit</h4>
+                <h4 class="modal-title">Ubah Barang</h4>
               </div>
               <div class="modal-body">
               <form method="post" action="{{ route('update_brg', $data['id_barang']) }}">
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Nama Barang:</label>
-                    <input type="text" class="form-control" name="nama_barang" placeholder="nama barang" value="{{$data->nama_barang}}">
+                    <input type="text" class="form-control" name="nama_barang" placeholder="nama barang" value="{{$data->nama_barang}}" required>
 					        </div>
                   
                 </div>
@@ -112,8 +111,8 @@
                  
               <div class="modal-footer">
                   <input type="hidden" name="_method" value="PUT">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
               </div>
               </form>
             </div> 
@@ -122,7 +121,7 @@
           <!-- /.modal-dialog -->
         </div>
         </div>
-        </div>
+
         <!-- /.modal -->
 @endforeach
 

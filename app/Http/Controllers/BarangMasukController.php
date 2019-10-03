@@ -41,27 +41,42 @@ class BarangMasukController extends Controller
     public function update(Request $request, $id_brg_masuk){
     	//cek isi customer id
         // dd($customer_id);
-        $data['ukuran']=UkuranBarang::all();
-        $data['barang']=Barang::all();
+        // $data['ukuran']=UkuranBarang::all();
+        // $data['barang']=Barang::all();
+        $request->validate([
+            'jml_masuk'    =>  'numeric',
+        ]);
+        $validator = Validator::make($request->all(), [
+            'jml_masuk'=>'numeric'
+            ]);
     	$c = BarangMasuk::where('id_brg_masuk',$id_brg_masuk)->first();
         $c->id_barang = $request->id_barang;
         $c->jml_masuk = $request->jml_masuk;
         $c->id_ukuran = $request->id_ukuran;
-		$c->update();
-		return redirect('barangmasuk',$data);
+        $c->update();
+        session([
+            'success' => ['Barang masuk berhasil diubah'],
+        ]);
+        return back();
     }
 
-    public function delete($id_brg_masuk){
+    // public function delete($id_brg_masuk){
         
-        $data['ukuran']=UkuranBarang::all();
-        $data['barang']=Barang::all();
+    //     $barang=Barang::all();
+    //     $ukuran=UkuranBarang::all(); 
+    //     $data['ukuran']=UkuranBarang::all();
+    //     $data['barang']=Barang::all();
         
-        $d_kurang=DetailsBarang::where(['id_barang'=>$barang[$i]['id_barang'],'id_ukuran'=>$data['id_ukuran']=$ukuran[$j]['id_ukuran']])->get();
-        $kurang['stok']=intval($d_kurang[0]['stok'])-intval($value);
-        $save=DetailsBarang::where(['id_barang'=>$barang[$i]['id_barang'],'id_ukuran'=>$data['id_ukuran']=$ukuran[$j]['id_ukuran']])->update($ukuran);
-        BarangMasuk::where('id_brg_masuk',$id_brg_masuk)->delete();
-        return redirect('barangmasuk',$data);
-    }
+    //     //$d_kurang=DetailsBarang::where(['id_barang'=>$barang[$i]['id_barang'],'id_ukuran'=>$data['id_ukuran']=$ukuran[$j]['id_ukuran']])->get();
+    //     $kurang['stok']=intval($d_kurang[0]['stok'])-intval($value);
+    //     //$save=DetailsBarang::where(['id_barang'=>$barang[$i]['id_barang'],'id_ukuran'=>$data['id_ukuran']=$ukuran[$j]['id_ukuran']])->update($kurang);
+    //     $save=DetailsBarang::where(['id_barang'=>$barang[$i]['id_barang'],'id_ukuran'=>$data['id_ukuran']=$ukuran[$j]['id_ukuran']])->update($kurang);
+    //     // update DetailsBarang.stok = $kurang['stok'] from detailbarang, barang, barang_masuk
+    //     //     where barang_masuk.id_barang = barang.id_barang and detailbarang.id_barang = barang.id_barang and barang_masuk.id_brg_masuk = $id_brg_masuk;
+    //     BarangMasuk::where('id_brg_masuk',$id_brg_masuk)->delete();
+    //     return redirect('barangmasuk',$data);
+
+    // }
 
     public function add_masuk(Request $request){
         $data['ukuran']=UkuranBarang::all();
@@ -153,4 +168,12 @@ class BarangMasukController extends Controller
                 return 'no';
             }
         }
+        public function delete($id_brg_masuk){
+        BarangMasuk::where('id_brg_masuk',$id_brg_masuk)->delete();
+        session([
+            'success' => ['Barang masuk berhasil dihapus'],
+        ]);
+        return back();
+        	
+    }
 }

@@ -23,6 +23,8 @@ class AdminController extends Controller
     {
     	// dd($request->first_name);
         // query insert dengan eloquent
+        $ceknama = User::where(['username'=>$request['username']])->get();
+            if(count($ceknama)==0){
         $this->validate($request,[
 			'name' => 'required|string',
             'username' => 'required|string|max:15',
@@ -35,8 +37,8 @@ class AdminController extends Controller
 			$data['password'] = bcrypt($request->password);
 		} else {
 			$data = $request->except('password');
-		}
-
+        }
+        
 		$user = User::create($data);
 
 		// \Flash::success('User berhasil ditambah!');
@@ -46,21 +48,64 @@ class AdminController extends Controller
         // $c->username = $request->username;
         // $c->email = $request->email;
         // $c->password = $request->password;
-		// $c->save();
-    	return redirect('users');
+        // $c->save();
+        session([
+            'success' => ['user berhasil ditambahkan'],
+        ]);
+        return redirect('users');
+            }else{
+                session([
+                    'error' => ['Tidak dapat menambah user '. $ceknama[0]['username'].' sudah ada'],
+                ]);
+                return redirect('users');
+            }
     }
     public function update(Request $request, $id){
-    	$c = User::where('id',$id)->first();
+        $this->validate($request,[
+			'name' => 'required|string',
+            'username' => 'required|string|max:15',
+            'email' => 'required|string',
+			'password' => 'required|min:8',
+		]);
+        $c = User::where('id',$id)->first();
+        $ceknama = User::where(['username'=>$request['username']])->get();
+        // return $ceknama;
+            if(count($ceknama)==0){
+                if($ceknama[0]['id']==$id){
         $c->name = $request->name;
         $c->username = $request->username;
         $c->email = $request->email;
         $c->password = $request->password;
-		$c->update();
-		return redirect('users');
+        $c->update();
+        session([
+            'success' => ['user berhasil diubah'],
+        ]);
+        return redirect('users');
+            }}else{
+                if($ceknama[0]['id']==$id){
+                    $c->name = $request->name;
+                    $c->username = $request->username;
+                    $c->email = $request->email;
+                    $c->password = $request->password;
+                    $c->update();
+                    session([
+                        'success' => ['user berhasil diubah'],
+                    ]);
+                    return redirect('users');
+                    }else{
+                        session([
+                            'error' => ['Tidak dapat menambah user '. $ceknama[0]['username'].' sudah ada'],
+                        ]);
+                        return redirect('users');
+                    }
+            }
     }
 
     public function delete($id){
-    	User::where('id',$id)->delete();
+        User::where('id',$id)->delete();
+        session([
+            'success' => ['user berhasil dihapus'],
+        ]);
         return redirect('users');
     }
 }

@@ -9,6 +9,7 @@
 @section('pengaturan','active')
 @section('periode','active')
 @section('content')
+@include('layouts.notification')
     <!-- Main content -->
       <div class="row">
         <div class="col-xs-12">
@@ -65,19 +66,26 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Periode</h4>
+                <h4 class="modal-title">Tambah Periode</h4>
               </div>
               <div class="modal-body">
+              @if(count($errors) > 0)
+				      <div class="alert alert-danger">
+					    @foreach ($errors->all() as $error)
+					    {{ $error }} <br/>
+					    @endforeach
+				    </div>
+	        	@endif
               <form method="POST" action="{{Route('create_per')}}">
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Nama Periode:</label>
-					          <input type="text" class="form-control" name="nama_periode" placeholder="nama periode">
+					          <input type="text" class="form-control" name="nama_periode" placeholder="nama periode" required>
 					        </div>
                   <div class="form-line">
 					          <label for="name">Tahun:</label>
+                    <input type="text" class="form-control" name="tahun" placeholder="tahun" required>
                    
-                    <input type="text" class="form-control" name="tahun" placeholder="tahun">
 					        </div>
                   <div class="form-group">
                     <label>Tanggal Mulai:</label>
@@ -86,7 +94,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" id="datepicker3" name="tgl_mulai"placeholder="tanggal mulai" >
+                  <input type="text" class="form-control pull-right" id="datepicker3" name="tgl_mulai"placeholder="tanggal mulai" required>
                 </div>
                 <!-- /.input group -->
               </div>
@@ -95,7 +103,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" id="datepicker4" name="tgl_berakhir"placeholder="tanggal berakhir" >
+                  <input type="text" class="form-control pull-right" id="datepicker4" name="tgl_berakhir"placeholder="tanggal berakhir" required>
                 </div>
                 <!-- /.input group -->
               </div>
@@ -106,8 +114,8 @@
                 </div>
               <div class="modal-footer">
                   <input type="hidden" name="_method" value="PUT">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
               </div>
             </div>
             </form>
@@ -127,18 +135,25 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit</h4>
+                <h4 class="modal-title">Ubah Periode</h4>
               </div>
               <div class="modal-body">
+              <!-- @if(count($errors) > 0)
+				      <div class="alert alert-danger">
+					    @foreach ($errors->all() as $error)
+					    {{ $error }} <br/>
+					    @endforeach
+				    </div>
+	        	@endif -->
               <form method="post" action="{{ route('update_per', $data['id_periode']) }}">
 				        <div class="form-group">
 					        <div class="form-line">
                     <label for="name">Nama Periode:</label>
-                    <input type="text" class="form-control" name="nama_periode" placeholder="nama periode" value="{{$data->nama_periode}}">
+                    <input type="text" class="form-control" name="nama_periode" placeholder="nama periode" value="{{$data->nama_periode}}" required>
 					        </div>
                   <div class="form-line">
 					          <label for="name">Tahun:</label>
-                    <input type="text" class="form-control" name="tahun" placeholder="tahun" value="{{$data->tahun}}">
+                    <input type="text" class="form-control" name="tahun" placeholder="tahun" value="{{$data->tahun}}" required>
                   </div>
                   <div class="form-group">
                 <label>Date:</label>
@@ -147,7 +162,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right datepicker" name="tgl_mulai" value="{{old('date_mulai') ? old('date_mulai'): $data['date_mulai']}}" >
+                  <input type="text" class="form-control pull-right datepicker" name="tgl_mulai" value="{{old('date_mulai') ? old('date_mulai'): $data['date_mulai']}}" required >
                 </div>
                 <!-- /.input group -->
               </div>
@@ -159,7 +174,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right datepicker" name="tgl_berakhir" value="{{old('date_berakhir') ? old('tgl_berakhir'): $data['date_berakhir']}}" >
+                  <input type="text" class="form-control pull-right datepicker" name="tgl_berakhir" value="{{old('date_berakhir') ? old('tgl_berakhir'): $data['date_berakhir']}}" required >
                 </div>
                 <!-- /.input group -->
               </div>
@@ -169,8 +184,8 @@
                  
               <div class="modal-footer">
                   <input type="hidden" name="_method" value="PUT">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
               </div>
               </form>
             </div> 

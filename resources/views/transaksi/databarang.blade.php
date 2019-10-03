@@ -1,14 +1,5 @@
 @extends('layouts.master')
-@section('content-header')
-      <h1>
-        Dashboard
-        <small>Control Panel</small>
-      </h1>
-      
-@endsection
 @section('content')
-@section('transaksi','active')
-@section('barangkeluar','active')
 @include('layouts.notification')
   
   <!-- Main content -->
@@ -68,10 +59,10 @@
                     <!-- form start -->
                     <!-- data penanggung jawab -->
                     <div class="box-body">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                           <h2>Pengambilan Barang</h4>
                             <hr>
-                        </div>
+                        </div> -->
                         @foreach ($barang as $barang)
                              <!--Kaos-->
                         <div class="box box-default collapsed-box">

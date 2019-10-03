@@ -28,29 +28,97 @@ class PeriodeController extends Controller
     }
     public function create(Request $request)
     {
+        $request->validate([
+            'tahun'    =>  'numeric',
+        ]);
+        $validator = Validator::make($request->all(), [
+            'tahun'=>'numeric'
+            ]);
+            if ($validator->fails()) {                      
+                return back()
+                           ->withErrors($validator)
+                   ->withInput();                      
+                }        
+        $cekperiode = Periode::where(['nama_periode'=>$request->nama_periode,'tahun'=>$request->tahun])->get();
+        // return $cekperiode;
+        if(count($cekperiode)==0){
     	$d = new periode();
         $d->nama_periode = $request->nama_periode;
         $d->tahun = $request->tahun;
         $d->tgl_mulai = date('Y-m-d', strtotime($request->tgl_mulai));
         $d->tgl_berakhir = date('Y-m-d', strtotime($request->tgl_berakhir));
-		$d->save();
+        $d->save();
+        session([
+            'success' => ['Periode berhasil ditambahkan'],
+        ]);
     	return redirect('periode');
+    }else{
+        session([
+          'error' => ['Periode sudah ada'],
+      ]);
+      return back();
+      }
     }
+
     public function update(Request $request, $id_periode){
-        // return $request;
-        // $d = Periode::where('id_periode',$id_periode)->first();
-        $d=Periode::find($id_periode);
+         $request->validate([
+            'tahun'    =>  'numeric',
+        ]);
+        $validator = Validator::make($request->all(), [
+            'tahun'=>'numeric'
+            ]);
+            if ($validator->fails()) {                      
+                return back()
+                           ->withErrors($validator)
+                   ->withInput();                      
+        }   
+        $cekperiode = Periode::where(['nama_periode'=>$request->nama_periode,'tahun'=>$request->tahun])->get();
+        // dd($cekperiode);
+        if(count($cekperiode)==0){
+            if($cekperiode[0]['id_periode']==$id_periode){
+                    $d = Periode::where('id_periode',$id_periode)->first();
         $d->nama_periode = $request->nama_periode;
         $d->tahun = $request->tahun;
         $d->tgl_mulai = date('Y-m-d', strtotime($request->tgl_mulai));
         $d->tgl_berakhir = date('Y-m-d', strtotime($request->tgl_berakhir));
         // return $d;
-		$d->update();
-		return redirect('periode');
+        $d->update();
+        session([
+            'success' => ['Details barang berhasil diubah'],
+        ]);
+        return back();
+        }
+    }else{
+		if($cekperiode[0]['id_periode']==$id_periode){
+            $d = Periode::where('id_periode',$id_periode)->first();
+            $d->nama_periode = $request->nama_periode;
+            $d->tahun = $request->tahun;
+        $d->tgl_mulai = date('Y-m-d', strtotime($request->tgl_mulai));
+        $d->tgl_berakhir = date('Y-m-d', strtotime($request->tgl_berakhir));
+            $d->update();
+            session([
+                'success' => ['Periode berhasil diubah'],
+            ]);
+            return back();
+            }else{
+                session([
+                    'error' => ['Tidak dapat mengubah periode sudah ada'],
+                ]);
+                return back();
+            
+            }
+        }
     }
+    
+       
 
     public function delete($id_periode){
-    	Periode::where('id_periode',$id_periode)->delete();
+        Periode::where('id_periode',$id_periode)->delete();
+        session([
+            'success' => ['Berhasil menghapus periode'],
+        ]);
+        return back();
         return redirect('periode');
+
     }
 }

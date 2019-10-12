@@ -37,7 +37,7 @@
 							<div class="alert alert-warning alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <i class="icon fa fa-warning"></i> Perhatian! &nbsp;
-                    File Data Mahasiswa Hanya Tipe (.xls, .xlsx)
+                    File data mahasiswa hanya bertipe (.xls, .xlsx). Dan pastikan niu mahasiswa tidak boleh sama!
                 </div>
 							<label>Pilih file excel</label>
 							<div class="form-group">
@@ -57,7 +57,7 @@
 
 
 		
-		<a href="/mahasiswa/export_excel" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
+		<!-- <a href="/mahasiswa/export_excel" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a> -->
 		<div class="box-body">
               <table id="example1" class="table table-bordered table-hover">
 		
@@ -158,11 +158,11 @@
 
 				if(allVals.length <=0)  
 				{  
-					alert("Please select row.");  
+					alert("Silakan pilih data.");  
 				}  else {  
 
 
-					var check = confirm("Are you sure you want to delete this row?");  
+					var check = confirm("Apakah yakin menghapus data ini?");  
 					if(check == true){  
 
 
@@ -183,7 +183,7 @@
 								} else if (data['error']) {
 									alert(data['error']);
 								} else {
-									alert('Whoops Something went wrong!!');
+									alert('Oops terjadi kesalahan!!');
 								}
 							},
 							error: function (data) {
@@ -224,7 +224,7 @@
 						} else if (data['error']) {
 							alert(data['error']);
 						} else {
-							alert('Whoops Something went wrong!!');
+							alert('Oops terjadi kesalahan!!');
 						}
 					},
 					error: function (data) {

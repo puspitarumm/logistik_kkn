@@ -22,6 +22,7 @@ class DocumentController extends Controller
 
         $data['document'] = Document::orderBy('id_dokumen','desc')->with('periode')->get();
         $data['tahun'] = json_decode(DB::table('periode')->distinct()->get('tahun'),true);
+        $data['nama_periode'] = json_decode(DB::table('periode')->distinct()->get('nama_periode'),true);
        
         
 		//dd($data['customer']);

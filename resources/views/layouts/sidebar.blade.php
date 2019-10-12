@@ -93,7 +93,7 @@
           </a>
           <ul class="treeview-menu">
             <li class="@yield('periode')"><a href="{{ url('/periode') }}"><i class="fa fa-circle-o"></i>Periode KKN</a></li>
-            <!-- <li class="@yield('lokasi')"><a href="{{ url('lokasi/lokasi') }}"><i class="fa fa-circle-o"></i>Lokasi</a></li> -->
+            <li class="@yield('lokasi')"><a href="{{ url('lokasi/lokasi') }}"><i class="fa fa-circle-o"></i>Lokasi</a></li>
           </ul>
         </li>
         

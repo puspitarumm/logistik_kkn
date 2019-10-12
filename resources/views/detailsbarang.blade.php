@@ -136,17 +136,18 @@
               <form method="post" action="{{ route('update_details', $data['id_details']) }}">
 				        <div class="form-group">
 					        <div class="form-line">
+                  <input type="hidden" name="old_brg" value="{{$data['id_barang']}}">
 					          <label for="name">Nama Barang:</label>
-                    <select class="form-control" name="id_barang">
-                                
+                    <select class="form-control select2" disabled="disabled" style="width: 100%;" name="id_barang">
                                 @foreach($barang as $item)
                                 <option value="{{$item['id_barang']}}" @if ($item['nama_barang']==$data['barang']['nama_barang']) selected @endif>{{$item['nama_barang']}}</option>
                                 @endforeach
                             </select>
 					        </div>
                   <div class="form-line">
+                  
 					          <label for="name">Ukuran Barang:</label>
-                    <select class="form-control" name="id_ukuran">
+                    <select class="form-control" name="id_ukuran" disabled="disabled">
                                 
                                 @foreach($ukuran_barang as $item)
                                 <option value="{{$item['id_ukuran']}}" @if ($item['ukuran_barang']==$data['ukuran_barang']['ukuran_barang']) selected @endif>{{$item['ukuran_barang']}}</option>

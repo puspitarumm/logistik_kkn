@@ -96,22 +96,16 @@
 				        <div class="form-group">
                 <div class="form-line">
                   <label for="name">Nama Barang:</label>
-                    <select class="form-control" name="id_barang" required>
+                    <select class="form-control" name="id_barang" disabled="disabled">
                                 
                                 @foreach($barang as $item)
                                 <option value="{{$item['id_barang']}}" @if ($item['nama_barang']==$data['barang']['nama_barang']) selected @endif>{{$item['nama_barang']}}</option>
                                 @endforeach
                             </select>
 					        </div>
-                  
-                  <div class="form-line">
-					          <label for="name">Jumlah Keluar:</label>
-                    <input type="text" class="form-control" name="jml_keluar" placeholder="jumlah keluar" value="{{$data->jml_keluar}}" required>
-                    @if ($errors->has('jml_keluar')){!! '<span class="text-red">'.$errors->first('jml_keluar').'</span>' !!} @endif
-                  </div>
-                  <div class="form-line">
+                            <div class="form-line">
                     <label for="name">Ukuran Barang:</label>
-                    <select class="form-control" name="id_ukuran" required>
+                    <select class="form-control" name="id_ukuran" disabled="disabled">
                                 
                                 @foreach($ukuran as $item)
                                 <option value="{{$item['id_ukuran']}}" @if ($item['ukuran_barang']==$data['ukuran_barang']['ukuran_barang']) selected @endif>{{$item['ukuran_barang']}}</option>
@@ -120,6 +114,13 @@
 					        </div>
                   
                 </div>
+                  
+                  <div class="form-line">
+					          <label for="name">Jumlah Keluar:</label>
+                    <input type="text" class="form-control" name="jml_keluar" placeholder="jumlah keluar" value="{{$data->jml_keluar}}" required>
+                    @if ($errors->has('jml_keluar')){!! '<span class="text-red">'.$errors->first('jml_keluar').'</span>' !!} @endif
+                  </div>
+                 
                 {{csrf_field()}}
 
                  

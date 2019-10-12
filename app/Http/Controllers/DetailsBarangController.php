@@ -55,6 +55,7 @@ class DetailsBarangController extends Controller
     }
 
         public function update(Request $request, $id_details){
+            // return $request;
             $request->validate([
                 'stok'    =>  'numeric',
             ]);
@@ -66,13 +67,13 @@ class DetailsBarangController extends Controller
                     ->withErrors($validator)
                        ->withInput();                      
                     }        
-            $cekdetails = DetailsBarang::where(['id_barang'=>$request->id_barang,'id_ukuran'=>$request->id_ukuran])->get();
-            // return $cekdetails[0]['id_details'];
-            if(count($cekdetails)==0 ){
-            if($cekdetails[0]['id_details']==$id_details){
+            // $cekdetails = DetailsBarang::where(['id_barang'=>$request->id_barang,'id_ukuran'=>$request->id_ukuran])->get();
+            // $cekold_id = DetailsBarang::where(['id_barang'=>$request->old_brg,'id_ukuran'=>$request->id_ukuran])->get();
+            // $cekold_ukuran = DetailsBarang::where(['id_barang'=>$request->old_brg,'id_ukuran'=>$request->id_ukuran])->get();
+            // return $cekold[0];
+            // if(count($cekdetails)==0 ){
+            //     if($cekdetails[0]['id_details']==$id_details){
             $c = DetailsBarang::where('id_details',$id_details)->first();
-            $c->id_barang = $request->id_barang;
-            $c->id_ukuran = $request->id_ukuran;
             $c->stok = $request->stok;
             $c->update();
             session([
@@ -80,25 +81,25 @@ class DetailsBarangController extends Controller
             ]);
             return back();
             }
-        }else{
-            if($cekdetails[0]['id_details']==$id_details){
-                $c = DetailsBarang::where('id_details',$id_details)->first();
-                $c->id_barang = $request->id_barang;
-                $c->id_ukuran = $request->id_ukuran;
-                $c->stok = $request->stok;
-                $c->update();
-                session([
-                    'success' => ['Details barang berhasil diubah'],
-                ]);
-                return back();
-                }else{
-                    session([
-                        'error' => ['Tidak dapat mengubah details barang '. $cekdetails[0]['id_barang']['id_ukuran'].' sudah ada'],
-                    ]);
-                    return back();
-                }
-          }
-        }
+        // }else{
+        //     if($cekdetails[0]['id_details']==$id_details){
+        //         $c = DetailsBarang::where('id_details',$id_details)->first();
+        //         $c->id_barang = $request->id_barang;
+        //         $c->id_ukuran = $request->id_ukuran;
+        //         $c->stok = $request->stok;
+        //         $c->update();
+        //         session([
+        //             'success' => ['Details barang berhasil diubah'],
+        //         ]);
+        //         return back();
+        //         }else{
+        //             session([
+        //                 'error' => ['Tidak dapat mengubah details barang sudah ada'],
+        //             ]);
+        //             return back();
+        //         }
+        //   }
+        
 
     
         public function delete($id_details){

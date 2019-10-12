@@ -1,22 +1,20 @@
 <?php
-
 namespace App\Imports;
-
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToArray;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Concerns\WithValidation;
 use Illuminate\Support\Collection;
 use App\Models\Mahasiswa;
 use App\Models\UkuranBarang;
 use App\Models\Periode;
 
-
-class MahasiswaImport implements ToModel,WithHeadingRow
+class MahasiswaImport implements ToModel, WithHeadingRow
 {
-
    
     public function model(array $rows)
     {
@@ -41,6 +39,17 @@ class MahasiswaImport implements ToModel,WithHeadingRow
         }
     
         }
+
+        // public function rules(): array{
+        //     return [
+        //         'niu' => Rule::unique('mahasiswa','niu'),
+        //     ];
+        // }
+
+        public function customValidationMessage(){
+            return [
+                'niu.unique' => 'niu sudah ada',
+            ];
+        }
       
     }
-

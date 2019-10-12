@@ -41,13 +41,23 @@ class MahasiswaController extends Controller
         if ($request->hasFile('file')) {
             //UPLOAD FILE
             $file = $request->file('file'); //GET FILE
-            Excel::import(new MahasiswaImport, $file); //IMPORT FILE
-			session([
-                'success' => ['Mahasiswa berhasil ditambahkan'],
-            ]);
-            return back();
+			Excel::import(new MahasiswaImport, $file); //IMPORT FILE
+			// $cekniu = Mahasiswa::where('niu',$request['niu'])->get();
+			// if (count($cekniu)==0){
+			// session([
+            //     'success' => ['Mahasiswa berhasil ditambahkan'],
+            // ]);
+			return back();
+		}else{
+			return redirect('/mahasiswa')->with(['error' => 'Please choose file before']);
 		}
-	}
+	// }else{
+	// 	$cekniu = Mahasiswa::where('niu',$request['niu'])->get();
+	// 	if (count($cekniu)!=0){
+	// 	return redirect('/mahasiswa')->with(['error' => 'Please choose file before']);
+	// }
+// }
+		}
 		
 
 	public function export_excel(Request $request)
@@ -77,7 +87,7 @@ class MahasiswaController extends Controller
     {
         $ids = $request->ids;
         DB::table("mahasiswa")->whereIn('niu',explode(",",$ids))->delete();
-        return response()->json(['success'=>"Products Deleted successfully."]);
+        return response()->json(['success'=>"Mahasiswa Berhasil Dihapus."]);
     }
 
 	

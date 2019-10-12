@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 13 Sep 2019 17:59:48 +0700.
+ * Date: Sat, 21 Sep 2019 16:06:37 +0700.
  */
 
 namespace App\Models;
@@ -10,9 +10,8 @@ namespace App\Models;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Lokasi
+ * Class Lokasikkn
  * 
- * @property int $id_lokasi
  * @property string $kode_lokasi
  * @property string $lokasi
  * 
@@ -23,16 +22,16 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 class Lokasi extends Eloquent
 {
 	protected $table = 'lokasi';
-	protected $primaryKey = 'id_lokasi';
+	protected $primaryKey = 'kode_lokasi';
+	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $fillable = [
-		'kode_lokasi',
 		'lokasi'
 	];
 
 	public function coba_mahasiswas()
 	{
-		return $this->hasMany(\App\Models\CobaMahasiswa::class, 'id_lokasi');
+		return $this->hasMany(\App\Models\CobaMahasiswa::class, 'kode_lokasi');
 	}
 }

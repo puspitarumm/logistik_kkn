@@ -59,16 +59,14 @@
                                       </select>
                                   <td>
                                 </div>
-                                <div class="form-group">
-                                  <label>Periode</label>
-                                  <select class="form-control" name="nama_periode" required>
-                                    <option>Periode 1</option>
-                                    <option>Periode 2</option>
-                                    <option>Periode 3</option>
-                                    <option>Periode 4</option>
-                                    <option>Periode 5</option>
-                                  </select>
-                                </div>
+                                <div class="form-line">
+                                <label for="nama_periode">Nama Periode</label>
+                                <td><select class='form-control' name='nama_periode' required>
+                                @foreach($nama_periode as $key=>$value) 
+                                  <option value="{{$value['nama_periode']}}">{{$value['nama_periode']}}</option>
+                                  @endforeach
+                                </select>
+					        <td>
                                 <div class="form-group">
                                   <label>Tahun</label>
                                   <td><select class='form-control' name='tahun' required>

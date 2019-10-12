@@ -9,6 +9,7 @@
 @section('pengaturan','active')
 @section('lokasi','active')
 @section('content')
+@include('layouts.notification')
 
 <!-- Main content -->
 <div class="row">
@@ -40,9 +41,9 @@
                   <td>{{$data['kode_lokasi']}}</td>
                   <td>{{$data['lokasi']}}</td>
                   <td>
-                  <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->id_lokasi}}">
+                  <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-warning{{$data->kode_lokasi}}">
                     <i class="glyphicon glyphicon-pencil"></i></button>
-				          <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger{{$data->id_lokasi}}">
+				          <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger{{$data->kode_lokasi}}">
                   <i class="glyphicon glyphicon-trash"></i></button>
             </td>
                 </tr>
@@ -63,14 +64,14 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Barang</h4>
+                <h4 class="modal-title">Tambah Lokasi</h4>
               </div>
               <div class="modal-body">
               <form method="POST" action="{{Route('create_lokasi')}}">
 				        <div class="form-group">
 					        <div class="form-line">
 					          <label for="name">Kode Lokasi:</label>
-                              <input type="text" class="form-control" name="kode_lokasi" placeholder="Kode Lokasi">
+                              <input type="text" class="form-control" name="kode_lokasi" placeholder="Kode Lokasi" >
 					        </div>
 
                             <div class="form-line">
@@ -95,20 +96,20 @@
 
       @foreach($lokasi as $data)
 
-<div class="modal fade" id="modal-warning{{$data->id_lokasi}}" tabindex="-1" role="dialog">
+<div class="modal fade" id="modal-warning{{$data->kode_lokasi}}" tabindex="-1" role="dialog">
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span></button>
-      <h4 class="modal-title">Edit</h4>
+      <h4 class="modal-title">Ubah Lokasi</h4>
     </div>
     <div class="modal-body">
-    <form method="post" action="{{ route('update_lokasi', $data['id_lokasi']) }}">
+    <form method="post" action="{{ route('update_lokasi', $data['kode_lokasi']) }}">
               <div class="form-group">
                   <div class="form-line">
                     <label for="name">Kode Lokasi:</label>
-                    <input type="text" class="form-control" name="kode_lokasi" placeholder="kode lokasi" value="{{$data->kode_lokasi}}">
+                    <input type="text" class="form-control" name="kode_lokasi" placeholder="kode lokasi" value="{{$data->kode_lokasi}}" readOnly="readOnly">
                   </div>
                   <div class="form-line">
                     <label for="name">Lokasi:</label>
@@ -135,7 +136,7 @@
 @endforeach
 
 @foreach($lokasi as $data)
-   <div class="modal fade" id="modal-danger{{$data->id_lokasi}}" tabindex="-1" role="dialog">
+   <div class="modal fade" id="modal-danger{{$data->kode_lokasi}}" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
                       <div class="modal-header">
@@ -143,7 +144,7 @@
                                       aria-hidden="true">&times;</span></button>
                           <h4 class="modal-title">Peringatan</h4>
                       </div>
-                      <form action="{{route('delete_lokasi', $data->id_lokasi)}}" method="post">
+                      <form action="{{route('delete_lokasi', $data->kode_lokasi)}}" method="post">
                           <div class="modal-body text-center">
                               <span class="fa fa-exclamation-triangle fa-2x" style="color: orange;"></span>
                         

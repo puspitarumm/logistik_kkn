@@ -120,7 +120,7 @@
 				        <div class="form-group">
                 <div class="form-line">
                   <label for="name">Nama Barang:</label>
-                    <select class="form-control" name="id_barang" required>
+                    <select class="form-control" name="id_barang" disabled="disabled">
                                 
                                 @foreach($barang as $item)
                                 <option value="{{$item['id_barang']}}" @if ($item['nama_barang']==$data['barang']['nama_barang']) selected @endif>{{$item['nama_barang']}}</option>
@@ -128,20 +128,22 @@
                             </select>
 					        </div>
                   
-                  <div class="form-line">
-					          <label for="name">Jumlah Masuk:</label>
-                    <input type="text" class="form-control" name="jml_masuk" placeholder="jumlah masuk" value="{{$data->jml_masuk}}" required>
-                    @if ($errors->has('jml_masuk')){!! '<span class="text-red">'.$errors->first('jml_masuk').'</span>' !!} @endif
-                  </div>
+                  
                   <div class="form-line">
                     <label for="name">Ukuran Barang:</label>
-                    <select class="form-control" name="id_ukuran" required>
+                    <select class="form-control" name="id_ukuran" disabled="disabled">
                                 
                                 @foreach($ukuran as $item)
                                 <option value="{{$item['id_ukuran']}}" @if ($item['ukuran_barang']==$data['ukuran_barang']['ukuran_barang']) selected @endif>{{$item['ukuran_barang']}}</option>
                                 @endforeach
                             </select>
 					        </div>
+
+                  <div class="form-line">
+					          <label for="name">Jumlah Masuk:</label>
+                    <input type="text" class="form-control" name="jml_masuk" placeholder="jumlah masuk" value="{{$data->jml_masuk}}" required>
+                    @if ($errors->has('jml_masuk')){!! '<span class="text-red">'.$errors->first('jml_masuk').'</span>' !!} @endif
+                  </div>
                   
                 </div>
                 {{csrf_field()}}

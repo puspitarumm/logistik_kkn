@@ -54,12 +54,12 @@ class BarangKeluarController extends Controller
            
             $c = BarangKeluar::where('id_brg_keluar',$request['id_brg_keluar'])->first();
             // return $c;
-            $c->id_barang = $request->id_barang;
+            // $c->id_barang = $request->id_barang;
             $c->jml_keluar = $request->jml_keluar;
-            $c->id_ukuran = $request->id_ukuran;
+            // $c->id_ukuran = $request->id_ukuran;
             $c->update();
             session([
-                'error'  => ['Barang berhasil diubah'],
+                'success'  => ['Barang berhasil diubah'],
             ]);
             return redirect('barangkeluar');
         }

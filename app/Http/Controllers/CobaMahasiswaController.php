@@ -29,6 +29,7 @@ class CobaMahasiswaController extends Controller
 	public function create(){
 		$data['ukuran_barang'] = UkuranBarang::all();
 		$data['tahun'] = json_decode(DB::table('periode')->distinct()->get('tahun'),true);
+		$data['nama_periode'] = json_decode(DB::table('periode')->distinct()->get('nama_periode'),true);
 		return view('mahasiswa/tambah_mahasiswa',$data);
 	}
 
@@ -80,6 +81,7 @@ class CobaMahasiswaController extends Controller
 			$data['ukuran_barang'] = UkuranBarang::all();
 			$id_periode = Periode::where(['nama_periode'=>$request->nama_periode,'tahun'=>$request->tahun])->get();  
 			$data['tahun'] = json_decode(DB::table('periode')->distinct()->get('tahun'),true);
+			$data['nama_periode'] = json_decode(DB::table('periode')->distinct()->get('nama_periode'),true);
 			$data['mahasiswa'] = Mahasiswa::findOrFail($niu);
 			return view('mahasiswa/edit_mahasiswa',$data);
 		}
@@ -105,8 +107,6 @@ class CobaMahasiswaController extends Controller
 					return back();
 			} 
 				
-			$cekniu = Mahasiswa::where(['niu'=>$request->niu])->get();
-			if(count($cekniu)==0){
 			DB::table('mahasiswa')->where('niu',$request->niu)->update([
 			'niu' => $request->niu,
 			'nama' => $request->nama,
@@ -120,12 +120,6 @@ class CobaMahasiswaController extends Controller
 				'success' => ['Mahasiswa berhasil diubah'],
 			]);
 				return redirect('mahasiswa');
-			}else{
-				session([
-				'error' => [$cekniu[0]['niu'].' sudah ada'],
-			]);
-			return redirect('mahasiswa');
-			}
 }
 
 		public function destroy($niu)

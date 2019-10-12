@@ -21,7 +21,7 @@
     <div class="box-body">
     <div class="form-group {{ $errors->has('niu') ? 'has-error' : '' }}">
         <label for="title" class="control-label">NIU</label>
-        <input type="text" class="form-control" name="niu" placeholder="NIU" value="{{ $mahasiswa->niu }}" required>
+        <input type="text" class="form-control" name="niu" placeholder="NIU" value="{{ $mahasiswa->niu }}" readOnly="readOnly">
         @if ($errors->has('niu'))
             <span class="help-block">{{ $errors->first('niu') }}</span>
         @endif
@@ -65,26 +65,20 @@
 					   
                 </div>
                 <div class="form-line">
-					          <label for="name">Periode:</label>
-                    <td><select class='form-control' name='nama_periode' required>
-                    
-                    <!-- <option value="">-- Select Periode --</option> -->
-                    <option {{old('nama_periode',$mahasiswa['periode']['nama_periode'])=="Periode 1"? 'selected':''}} value="Periode 1">Periode 1</option>
-                    <option {{old('nama_periode',$mahasiswa['periode']['nama_periode'])=="Periode 2"? 'selected':''}} value="Periode 2">Periode 2</option>
-                    <option {{old('nama_periode',$mahasiswa['periode']['nama_periode'])=="Periode 3"? 'selected':''}} value="Periode 3">Periode 3</option>
-                    <option {{old('nama_periode',$mahasiswa['periode']['nama_periode'])=="Periode 4"? 'selected':''}} value="Periode 4">Periode 4</option>
-                    <option {{old('nama_periode',$mahasiswa['periode']['nama_periode'])=="Periode 5"? 'selected':''}} value="Periode 5">Periode 5</option>
-                    <!-- <option value="Periode 2">Periode 2</option>
-                    <option value="Periode 2">Periode 2</option>
-                    <option value="Periode 3">Periode 3</option>
-                    <option value="Periode 4">Periode 4</option>
-                    <option value="Periode 5">Periode 5</option> -->
-                    </select>
-                    <?php
-                    // $data=array('Periode 1'=>'','Periode 2'=>'','Periode 3'=>'');
-                    //Query year into $year
-                    $data['periode']['nama_periode']='selected';
-                    ?>
+					          <label for="nama_periode">Periode</label>
+                    <td>
+                    <!-- <select class='form-control' name='tahun' required>
+                    @foreach($tahun as $key=>$value) 
+                      <option value="{{$value['tahun']}}">{{$value['tahun']}}</option>
+                      @endforeach
+                    </select> -->
+
+                    <select class="form-control" name="nama_periode" required>
+                                
+                                @foreach($nama_periode as $item)
+                                <option value="{{$item['nama_periode']}}" @if ($item['nama_periode']==$mahasiswa['periode']['nama_periode']) selected @endif>{{$item['nama_periode']}}</option>
+                                @endforeach
+                            </select>
 					        <td>
                   </div>
                   

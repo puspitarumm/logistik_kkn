@@ -72,43 +72,45 @@ class PeriodeController extends Controller
                            ->withErrors($validator)
                    ->withInput();                      
         }   
-        $cekperiode = Periode::where(['nama_periode'=>$request->nama_periode,'tahun'=>$request->tahun])->get();
+        // $cekperiode = Periode::where(['nama_periode'=>$request->nama_periode,'tahun'=>$request->tahun])->get();
+        // return $cekperiode;
         // dd($cekperiode);
-        if(count($cekperiode)==0){
-            if($cekperiode[0]['id_periode']==$id_periode){
-                    $d = Periode::where('id_periode',$id_periode)->first();
+        // if(count($cekperiode)==0){
+        //     // return count($cekperiode);
+        //     if($cekperiode[0]['id_periode']==$id_periode){
+        $d = Periode::where('id_periode',$id_periode)->first();
         $d->nama_periode = $request->nama_periode;
         $d->tahun = $request->tahun;
         $d->tgl_mulai = date('Y-m-d', strtotime($request->tgl_mulai));
         $d->tgl_berakhir = date('Y-m-d', strtotime($request->tgl_berakhir));
-        // return $d;
         $d->update();
         session([
-            'success' => ['Details barang berhasil diubah'],
+            'success' => ['Periode berhasil diubah'],
         ]);
         return back();
         }
-    }else{
-		if($cekperiode[0]['id_periode']==$id_periode){
-            $d = Periode::where('id_periode',$id_periode)->first();
-            $d->nama_periode = $request->nama_periode;
-            $d->tahun = $request->tahun;
-        $d->tgl_mulai = date('Y-m-d', strtotime($request->tgl_mulai));
-        $d->tgl_berakhir = date('Y-m-d', strtotime($request->tgl_berakhir));
-            $d->update();
-            session([
-                'success' => ['Periode berhasil diubah'],
-            ]);
-            return back();
-            }else{
-                session([
-                    'error' => ['Tidak dapat mengubah periode sudah ada'],
-                ]);
-                return back();
+    // }else{
+    //     // return count($cekperiode);
+	// 	if($cekperiode[0]['id_periode']==$id_periode){
+    //         $d = Periode::where('id_periode',$id_periode)->first();
+    //         $d->nama_periode = $request->nama_periode;
+    //         $d->tahun = $request->tahun;
+    //         $d->tgl_mulai = date('Y-m-d', strtotime($request->tgl_mulai));
+    //         $d->tgl_berakhir = date('Y-m-d', strtotime($request->tgl_berakhir));
+    //         $d->update();
+    //         session([
+    //             'success' => ['Periode berhasil diubah'],
+    //         ]);
+    //         return back();
+    //         }else{
+    //             session([
+    //                 'error' => ['Tidak dapat mengubah periode sudah ada'],
+    //             ]);
+    //             return back();
             
-            }
-        }
-    }
+    //         }
+    //     }
+    
     
        
 

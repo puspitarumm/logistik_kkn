@@ -98,6 +98,8 @@
                 </div>
                 <!-- /.input group -->
               </div>
+              <div class="form-group">
+                    <label>Tanggal Berakhir:</label>
                   
                 <div class="input-group date">
                   <div class="input-group-addon">
@@ -149,14 +151,15 @@
 				        <div class="form-group">
 					        <div class="form-line">
                     <label for="name">Nama Periode:</label>
-                    <input type="text" class="form-control" name="nama_periode" placeholder="nama periode" value="{{$data->nama_periode}}" required>
+                    <!-- <input type="hidden" name="nama_periode" value="{{$data['nama_periode']}}"> -->
+                    <input type="text" class="form-control" name="nama_periode" placeholder="nama periode" value="{{$data->nama_periode}}" readOnly="readOnly" >
 					        </div>
                   <div class="form-line">
 					          <label for="name">Tahun:</label>
-                    <input type="text" class="form-control" name="tahun" placeholder="tahun" value="{{$data->tahun}}" required>
+                    <input type="text" class="form-control" name="tahun" placeholder="tahun" value="{{$data->tahun}}" readOnly="readOnly">
                   </div>
                   <div class="form-group">
-                <label>Date:</label>
+                <label>Tanggal Mulai:</label>
 
                 <div class="input-group date">
                   <div class="input-group-addon">
@@ -168,7 +171,7 @@
               </div>
 
               <div class="form-group">
-                <label>Date:</label>
+                <label>Tanggal Berakhir:</label>
 
                 <div class="input-group date">
                   <div class="input-group-addon">

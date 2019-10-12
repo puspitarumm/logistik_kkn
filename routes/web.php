@@ -206,8 +206,8 @@ Route::prefix('laporan')->group(function() {
 Route::prefix('lokasi')->group(function(){
     Route::get('lokasi','LokasiController@index');
     Route::put('lokasi_create','LokasiController@create')->name('create_lokasi');
-    Route::put('lokasi_update/{id_lokasi}','LokasiController@update')->name('update_lokasi');
-    Route::delete('lokasi_delete/{id_lokasi}','LokasiController@delete')->name('delete_lokasi');
+    Route::put('lokasi_update/{kode_lokasi}','LokasiController@update')->name('update_lokasi');
+    Route::delete('lokasi_delete/{kode_lokasi}','LokasiController@delete')->name('delete_lokasi');
 
 });
 

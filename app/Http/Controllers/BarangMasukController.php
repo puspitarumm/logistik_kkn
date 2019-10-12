@@ -50,9 +50,9 @@ class BarangMasukController extends Controller
             'jml_masuk'=>'numeric'
             ]);
     	$c = BarangMasuk::where('id_brg_masuk',$id_brg_masuk)->first();
-        $c->id_barang = $request->id_barang;
+        // $c->id_barang = $request->id_barang;
         $c->jml_masuk = $request->jml_masuk;
-        $c->id_ukuran = $request->id_ukuran;
+        // $c->id_ukuran = $request->id_ukuran;
         $c->update();
         session([
             'success' => ['Barang masuk berhasil diubah'],
